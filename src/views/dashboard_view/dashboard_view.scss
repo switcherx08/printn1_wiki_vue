@@ -1,0 +1,25 @@
+.dashboard-card {
+  background: var(--widget-grey);
+  border: none;
+  padding: 32px 40px 40px;
+}
+
+.welcome-card {
+  &__title {
+    color: var(--dark-text);
+    font-size: 1.8em;
+    font-weight: 600;
+    line-height: 1.3em;
+  }
+
+  &__text {
+    font-size: .9rem;
+    font-weight: 300;
+    color: var(--light-text);
+  }
+}
+
+.dashboard-box {
+  display: inline-block;
+  width: 100%;
+}

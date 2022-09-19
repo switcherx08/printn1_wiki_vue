@@ -1,0 +1,52 @@
+<script>
+import LbCard from "../../components/base/card/Lb-Card.vue";
+
+export default {
+  name: 'DashboardView',
+  components: {
+    LbCard
+  },
+  data() {
+    return {
+      todoCard: {
+        tabs: {0: {name: 'All', id: 1}, 1: {name: 'Mine', id: 2}}
+      },
+      team: {
+        0: {name: 'Name 1', image: '/images/avatars/image/5.jpg'},
+        1: {name: 'Name 2', image: '/images/avatars/image/36.jpg'},
+        2: {name: 'Name 3', image: '/images/avatars/image/15.jpg'},
+        3: {name: 'Name 4', image: '/images/avatars/image/18.jpg'},
+        4: {name: 'Name 5', image: '/images/avatars/image/21.jpg'}
+      },
+    }
+  },
+  methods: {
+    changeTodoTab(tabId) {
+      console.log(tabId)
+    }
+  }
+}
+</script>
+
+<template>
+  <div class="gap-6 columns-3">
+    <div>
+      <!-- User welcome card -->
+      <LbCard
+          :use-background="false"
+          :use-padding="false"
+          class="dashboard-card welcome-card"
+      >
+        <div class="flex flex-col">
+          <!-- Hi Erik K. -->
+          <div class="welcome-card__title mb-2">Привет!</div>
+          <p class="welcome-card__text mb-4">
+            Рады видеть тебя. Очень скоро здесь появятся последние загруженные данные для Wiki
+          </p>
+        </div>
+      </LbCard>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" src="./dashboard_view.scss"></style>

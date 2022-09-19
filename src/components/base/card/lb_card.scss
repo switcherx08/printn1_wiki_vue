@@ -1,0 +1,23 @@
+.lb-card {
+  display: inline-block;
+  flex: 1;
+  width: 100%;
+  transition: all .3s;
+
+  &:not(.is_small) {
+    border-radius: 1em;
+  }
+
+  &.is_small {
+    border-radius: .5em;
+  }
+
+  &[data-bg = 'true'] {
+    background-color: var(--white)
+  }
+
+  &[data-padding = 'true'] {
+    padding: 20px;
+  }
+
+}

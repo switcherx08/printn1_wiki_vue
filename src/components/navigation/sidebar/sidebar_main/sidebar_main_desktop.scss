@@ -1,0 +1,29 @@
+$sidebarWidth: 80px;
+
+.sidebar-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $sidebarWidth;
+  height: 100vh;
+  background-color: var(--background-grey);
+  box-shadow: none;
+  z-index: 35;
+  transition: border-radius 0.3s ease-in, background-color 0.3s ease-in, top 0.3s ease-in, margin-left 0.3s ease-in, height 0.3s ease-in;
+}
+
+.sidebar-account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: $sidebarWidth;
+  padding: 15px 0;
+  //height: 60px;
+}
+
+.sidebar-inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}

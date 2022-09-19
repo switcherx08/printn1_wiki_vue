@@ -1,0 +1,18 @@
+[
+  {
+    "key": "description",
+    "name": "Описание"
+  },
+  {
+    "key": "team",
+    "name": "Команда"
+  },
+  {
+    "key": "accounts",
+    "name": "Счета"
+  },
+  {
+    "key": "save",
+    "name": "Сохранение"
+  }
+]

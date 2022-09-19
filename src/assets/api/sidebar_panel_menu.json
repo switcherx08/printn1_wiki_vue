@@ -1,0 +1,11 @@
+{
+  "dashboard": [
+    {
+      "name":"Главная",
+      "route": {"name": "dashboard"},
+      "module": "dashboard",
+      "disabled": false,
+      "parent": null
+    }
+  ]
+}

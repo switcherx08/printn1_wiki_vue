@@ -1,0 +1,22 @@
+body {
+  background: var(--body-color);
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: -0.1px;
+  font-size: .9rem;
+  color: var(--text-color);
+}
+
+.disabled,
+.is_disabled,
+a[disabled="true"] {
+  opacity: .15;
+  pointer-events: none;
+}
+
+.app-content {
+  transition: all .8s .02s ease-in-out;
+}

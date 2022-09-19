@@ -1,0 +1,24 @@
+.v-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 40px;
+  width: 40px;
+  min-width: 40px;
+  transition: all 0.3s;
+
+  &[data-bg='true'] {
+    background-color: var(--fade-grey);
+  }
+
+  &[data-rounded='true'] {
+    border-radius: 50%;
+  }
+
+  &:not([data-rounded='true']) {
+    border-radius: 8px;
+  }
+
+  .is-info {}
+}

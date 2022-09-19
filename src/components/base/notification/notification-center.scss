@@ -1,0 +1,14 @@
+.notify-center {
+  display: flex;
+  flex-direction: column;
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 34px;
+    width: 34px;
+    border-radius: var(--radius-rounded);
+    transition: all 0.3s;
+  }
+}

@@ -1,0 +1,46 @@
+.icon-card {
+  &__info {
+    margin-left: 12px;
+    line-height: 1.4;
+  }
+
+  &__count {
+    font-size: 0.95rem;
+    color: var(--dark-text);
+    font-weight: 600;
+  }
+
+  &__text {
+    color: var(--light-text);
+    font-size: 0.9rem;
+  }
+
+  &__icon svg {
+    font-size: 20px;
+  }
+
+  &__icon.is-default {
+    background-color: var(--fade-grey);
+    color: var(--light-text);
+  }
+
+  &__icon.is-info {
+    background-color: var(--sky-200);
+    color: var(--sky-400);
+  }
+
+  &__icon.is-purple {
+    background-color: var(--purple-200);
+    color: var(--purple-400);
+  }
+
+  &__icon.is-green {
+    background-color: var(--green-200);
+    color: var(--green-400);
+  }
+
+  &__icon.is-orange {
+    background-color: var(--orange-200);
+    color: var(--orange-400);
+  }
+}
