@@ -1,31 +1,3 @@
-<template>
-  <div class="pages-nav-item flex flex-col">
-    <div class="pages-nav-item__box flex">
-      <div class="pages-nav-item__icon mr-3">
-        <IconArrowBottom />
-      </div>
-      <div class="pages-nav-item__name w-full mr-3">
-        Страницы
-      </div>
-      <div class="pages-nav-item__buttons">
-        <button type="button" class="pages-nav-item__button">
-          <IconPlus />
-        </button>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import IconPlus from "../../icons/IconPlus.vue";
-import IconArrowBottom from "@/components/icons/IconArrowBottom.vue";
-export default {
-  name: "PagesNavigationItemChild",
-  components: {IconArrowBottom, IconPlus}
-}
-</script>
-
-<style lang="scss">
 .pages-nav-item {
   &__box {
     position: relative;
@@ -50,18 +22,51 @@ export default {
     background-color: var(--background-grey);
   }
 
+  &.is_main &__box:hover:after {
+    background-color: transparent !important;
+  }
+
+  &__dot,
   &__icon {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     width: 18px;
     height: 18px;
     color: var(--title-grey);
+  }
+
+  &__icon {
     cursor: pointer;
+    transform: rotate(0deg);
+    transition: all .45s ease-in-out;
+  }
+
+  &__icon.is_open {
+    transform: rotate(180deg);
+  }
+
+  &__dot {
+    position: relative;
+    justify-content: center;
+  }
+
+  &__dot:before {
+    content: '';
+    display: inline-flex;
+    position: relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--placeholder);
   }
 
   &__buttons {
+    display: none;
+  }
+
+  &__box:hover &__buttons {
     display: flex;
-    align-items: center;
   }
 
   &__button {
@@ -95,5 +100,22 @@ export default {
     text-overflow: ellipsis;
     cursor: pointer;
   }
+
+  &__name b {
+    color: var(--title-grey);
+  }
+
+  &__child:not(.pl-0) {
+    padding-left: 15px;
+  }
+
+  &__child {
+    max-height: 0;
+    transition: all .45s ease-in-out;
+    overflow: hidden;
+  }
+
+  &__child.is_open {
+    max-height: 3024px;
+  }
 }
-</style>

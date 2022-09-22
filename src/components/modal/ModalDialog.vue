@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-  <div class="modal" :class="{'modal-open': is_show}">
+  <div class="modal z-50" :class="{'modal-open': is_show}">
     <div class="modal-box relative" :class="modalSizeClassList">
       <button class="btn btn-sm btn-circle absolute right-2 top-2" @click="hide()">✕</button>
       <!-- Modal header -->
@@ -51,3 +51,9 @@ export default {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.modal {
+  padding: 1rem;
+}
+</style>

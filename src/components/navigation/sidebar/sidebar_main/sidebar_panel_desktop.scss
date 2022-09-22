@@ -8,11 +8,16 @@
   z-index: 31;
   transition: 0.25s ease-in-out;
 
+  &__body {
+    height: 100%;
+  }
+
   &.left_0 {
     left: -40px;
   }
 
   &__header {
+    flex: 0 0 auto;
     height: 60px;
     display: flex;
     justify-content: flex-start;
@@ -27,10 +32,9 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    flex: 1 0 auto;
     margin: 0;
     width: inherit;
-    height: inherit;
     max-width: inherit;
     max-height: inherit;
     overflow: hidden;

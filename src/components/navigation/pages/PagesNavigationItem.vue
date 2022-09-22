@@ -1,5 +1,5 @@
 <template>
-  <div class="pages-nav-item flex flex-col">
+  <div class="pages-nav-item flex flex-col" :class="{'is_main': itemData.isMain}">
     <div class="pages-nav-item__box flex">
       <template v-if="itemData.isMain">
         <div class="pages-nav-item__icon mr-3">
@@ -7,29 +7,53 @@
         </div>
       </template>
       <template v-else>
-        <div class="pages-nav-item__icon mr-3">
-          <IconArrowBottom v-if="itemData.children" />
+        <div
+            v-if="itemData.children"
+            class="pages-nav-item__icon mr-3"
+            :class="{'is_open': isOpen}"
+            @click="toggleChild()"
+        >
+          <IconArrowBottom />
+        </div>
+        <div v-else class="pages-nav-item__dot mr-3" @click="pushPage(itemData)"></div>
+      </template>
+      <template v-if="itemData.isMain">
+        <div class="pages-nav-item__name w-full mr-3">
+          <b>{{itemData.name}}</b>
         </div>
       </template>
-      <div class="pages-nav-item__name w-full mr-3">
-        {{itemData.name}}
-      </div>
+      <template v-else>
+        <div class="pages-nav-item__name w-full mr-3" @click="pushPage(itemData)">
+          {{itemData.name}}
+        </div>
+      </template>
       <div class="pages-nav-item__buttons">
-        <button type="button" class="pages-nav-item__button">
+        <button type="button" class="pages-nav-item__button" @click="addPage(itemData)">
           <IconPlus />
         </button>
       </div>
     </div>
 
-    <div class="pages-nav-item__ul">
-<!--      <PagesNavigationItemChild />-->
+    <!--      <template v-if="levelMenu <= 3">-->
+    <div
+        v-if="itemData.children"
+        class="pages-nav-item__child"
+        :class="{'is_open': isOpen}"
+    >
+        <PagesNavigationItem
+            v-for="(child, childIndex) in itemData.children"
+            :key="childIndex"
+            :item-data="child"
+            :level-data="levelMenu"
+        />
     </div>
+    <!--      </template>-->
 
   </div>
 </template>
 
 <script>
-import IconPlus from "../../icons/IconPlus.vue";
+import IconPlus from "@/components/icons/IconPlus.vue";
 import IconArrowBottom from "@/components/icons/IconArrowBottom.vue";
 import IconPage from "@/components/icons/IconPage.vue";
 
@@ -40,80 +64,41 @@ export default {
     itemData: {
       type: [Object, Array],
       required: true
+    },
+    levelData: {
+      type: Number,
+      required: true
     }
+  },
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+  computed: {
+    levelMenu() {
+      return this.levelData + 1
+    }
+  },
+  methods: {
+    toggleChild() {
+      this.isOpen = !this.isOpen;
+    },
+
+    pushPage(page) {
+      console.log('Push to ' + page.name)
+
+      if(page.children && Object.keys(page.children).length !== 0) {
+        this.isOpen = true
+      }
+    },
+
+    addPage(page) {
+      console.log('Add new page in ' + page.name)
+    }
+
   }
 }
 </script>
 
-<style lang="scss">
-.pages-nav-item {
-  &__box {
-    position: relative;
-    align-items: center;
-    height: 40px;
-  }
-
-  &__box:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -4px;
-    right: -4px;
-    border-radius: var(--radius);
-    background-color: transparent;
-    z-index: -1;
-    cursor: pointer;
-  }
-
-  &__box:hover:after {
-    background-color: var(--background-grey);
-  }
-
-  &__icon {
-    display: flex;
-    align-items: center;
-    width: 18px;
-    height: 18px;
-    color: var(--title-grey);
-    cursor: pointer;
-  }
-
-  &__buttons {
-    display: flex;
-    align-items: center;
-  }
-
-  &__button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 28px;
-    height: 28px;
-    margin-right: 4px;
-    border-radius: var(--radius);
-    cursor: pointer;
-  }
-
-  &__button:hover {
-    background-color: var(--border-color);
-  }
-
-  &__button svg {
-    width: 20px;
-    height: 20px;
-    fill: var(--light-text)
-  }
-
-  &__button:hover svg {
-    fill: var(--title-grey)
-  }
-
-  &__name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-  }
-}
-</style>
+<style lang="scss" src="./page_navigation_item.scss"></style>
