@@ -1,11 +1,18 @@
 <template>
   <div class="pages-nav-item flex flex-col">
     <div class="pages-nav-item__box flex">
-      <div class="pages-nav-item__icon mr-3">
-        <IconArrowBottom />
-      </div>
+      <template v-if="itemData.isMain">
+        <div class="pages-nav-item__icon mr-3">
+          <IconPage />
+        </div>
+      </template>
+      <template v-else>
+        <div class="pages-nav-item__icon mr-3">
+          <IconArrowBottom v-if="itemData.children" />
+        </div>
+      </template>
       <div class="pages-nav-item__name w-full mr-3">
-        Страницы
+        {{itemData.name}}
       </div>
       <div class="pages-nav-item__buttons">
         <button type="button" class="pages-nav-item__button">
@@ -24,10 +31,17 @@
 <script>
 import IconPlus from "../../icons/IconPlus.vue";
 import IconArrowBottom from "@/components/icons/IconArrowBottom.vue";
-import PagesNavigationItemChild from "@/components/navigation/pages/PagesNavigationItemChild";
+import IconPage from "@/components/icons/IconPage.vue";
+
 export default {
   name: "PagesNavigationItem",
-  components: {PagesNavigationItemChild, IconArrowBottom, IconPlus}
+  components: {IconPage, IconArrowBottom, IconPlus},
+  props: {
+    itemData: {
+      type: [Object, Array],
+      required: true
+    }
+  }
 }
 </script>
 

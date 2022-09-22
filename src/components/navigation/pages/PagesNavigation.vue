@@ -1,10 +1,12 @@
 <template>
     <div class="pages-nav">
-      <PagesNavigationItem />
-      <PagesNavigationItem />
-      <PagesNavigationItem />
-      <PagesNavigationItem />
-      <PagesNavigationItem />
+      <PagesNavigationItem :item-data="mainPageItem" />
+
+      <PagesNavigationItem
+          v-for="(page, pageIndex) in pages"
+          :key="pageIndex"
+          :item-data="page"
+      />
     </div>
 </template>
 
@@ -12,7 +14,15 @@
 import PagesNavigationItem from "./PagesNavigationItem.vue";
 export default {
   name: "PagesNavigation",
-  components: {PagesNavigationItem}
+  components: {PagesNavigationItem},
+  data() {
+    return {
+      mainPageItem: {id: 1, name: 'Страницы', isMain: true},
+      pages: [
+        {id: 1, name: 'Get started'}
+      ]
+    }
+  }
 }
 </script>
 
