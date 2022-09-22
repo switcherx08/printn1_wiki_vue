@@ -3,9 +3,10 @@ import { mapState, mapActions } from 'pinia'
 import { useSidebarStore } from '@/stores/sidebar';
 import { useModuleStore } from '@/stores/module';
 import ProjectSelect from "@/components/projects/ProjectSelect.vue";
+import PagesNavigation from "@/components/navigation/pages/PagesNavigation.vue";
 
 export default {
-  components: {ProjectSelect},
+  components: {PagesNavigation, ProjectSelect},
   computed: {
     ...mapState(useSidebarStore, {
       panelMenu: 'panelMenu',
@@ -21,8 +22,7 @@ export default {
   },
   methods: {
     ...mapActions(useSidebarStore, [
-      'fetchPanelMenu',
-      'getActiveIconMenuName'
+      'fetchPanelMenu'
     ])
   }
 }
@@ -35,25 +35,12 @@ export default {
         <div class="sidebar-panel__body">
           <div class="sidebar-panel__header mb-4">
             <div class="sidebar-panel__title h3 subtitle w-full">
-<!--              {{ getActiveIconMenuName() }}-->
               <ProjectSelect />
             </div>
           </div>
-
-          <div class="mt-6 mx-5">
-            <b class="">Страницы</b>
+          <div class="sidebar-panel__wrapper">
+            <PagesNavigation />
           </div>
-          <ul class="sidebar-panel__wrapper">
-            <li v-for="(item, itemIndex) in panelMenu[activeModule]" :key="itemIndex">
-              <router-link
-                  :to="item.route"
-                  :disabled="item.disabled"
-                  :class="{'is_active': item.route && item.route.name === $route.name || $route.meta.parent === item.route.name}"
-              >
-                {{ item.name }}
-              </router-link>
-            </li>
-          </ul>
         </div>
       </div>
     </template>
