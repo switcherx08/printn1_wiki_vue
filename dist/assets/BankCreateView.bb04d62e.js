@@ -1,1 +1,0 @@
-import{_ as r,C as s,o as e,c as n,p as o}from"./index.1e9ddc63.js";const _={name:"BankCreateView"},c={key:0,class:"flex"};function i(a,p,k,l,f,d){const t=s("router-view");return a.$route.name==="banks-create"?(e(),n("div",c," BankListView... ")):(e(),o(t,{key:1}))}var u=r(_,[["render",i]]);export{u as default};

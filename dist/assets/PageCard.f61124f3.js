@@ -1,1 +1,0 @@
-import{_ as a,o as s,c as r,r as _}from"./index.1e9ddc63.js";const t={name:"PageCard"},c={class:"page-card"};function o(e,n,d,p,l,f){return s(),r("div",c,[_(e.$slots,"default")])}var g=a(t,[["render",o]]);export{g as P};
