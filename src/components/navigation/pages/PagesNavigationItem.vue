@@ -2,7 +2,7 @@
   <div class="pages-nav-item flex flex-col" :class="{'is_main': itemData.isMain}">
     <div class="pages-nav-item__box flex">
       <template v-if="itemData.isMain">
-        <div class="pages-nav-item__icon mr-3">
+        <div class="pages-nav-item__icon mr-3" :class="{'is_main': itemData.isMain}">
           <IconPage />
         </div>
       </template>

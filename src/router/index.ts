@@ -21,6 +21,37 @@ const router = createRouter({
       component: () => import('@/views/dashboard_view/DashboardView.vue')
     },
     {
+      path: '/page',
+      meta: {
+        layout: layouts.sidebar,
+        module: modules[0].dashboard,
+        page: {title: 'page'}
+      },
+      component: () => import('@/views/page_view/PageIndex.vue'),
+      children: [
+        {
+          path: '',
+          name: 'page-list',
+          meta: {
+            layout: layouts.sidebar,
+            module: modules[0].dashboard,
+            page: {title: 'page'}
+          },
+          component: () => import('@/views/page_view/list/PageList.vue'),
+        },
+        {
+          path: '/page/:alias',
+          name: 'page-view',
+          meta: {
+            layout: layouts.sidebar,
+            module: modules[0].dashboard,
+            page: {title: 'page'}
+          },
+          component: () => import('@/views/page_view/view/PageView.vue'),
+        },
+      ]
+    },
+    {
       path: '/:catchAll(.*)',
       name: 'not-found',
       meta: {
