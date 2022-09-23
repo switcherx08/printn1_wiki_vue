@@ -1,0 +1,58 @@
+.project-select {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__selected {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  &__selected:hover {
+    color: var(--primary)
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  &__option {
+    width: 100%;
+    font-size: .9rem;
+    color: var(--text-color);
+  }
+
+  &__option button {
+    width: 100%;
+    padding: .5rem;
+    border-radius: var(--border-radius-light);
+    overflow: hidden;
+    text-align: left;
+  }
+
+  &__option button:hover {
+    background-color: var(--sidebar-color);
+  }
+
+  &__option button:focus {
+    background-color: var(--background-grey);
+  }
+
+  &__option button span {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  & .divider {
+    font-size: .9rem;
+    margin: .5rem 0 0;
+  }
+}

@@ -21,6 +21,37 @@ const router = createRouter({
       component: () => import('@/views/dashboard_view/DashboardView.vue')
     },
     {
+      path: '/projects',
+      meta: {
+        layout: layouts.sidebar,
+        module: modules[0].dashboard,
+        page: {title: 'projects'}
+      },
+      component: () => import('@/views/project_view/ProjectIndex.vue'),
+      children: [
+        {
+          path: '',
+          name: 'projects-list',
+          meta: {
+            layout: layouts.sidebar,
+            module: modules[0].dashboard,
+            page: {title: 'projects-list'}
+          },
+          component: () => import('@/views/project_view/list/ProjectList.vue'),
+        },
+        {
+          path: '/create',
+          name: 'projects-create',
+          meta: {
+            layout: layouts.sidebar,
+            module: modules[0].dashboard,
+            page: {title: 'projects-create'}
+          },
+          component: () => import('@/views/project_view/create/ProjectCreate.vue'),
+        }
+      ]
+    },
+    {
       path: '/page',
       meta: {
         layout: layouts.sidebar,

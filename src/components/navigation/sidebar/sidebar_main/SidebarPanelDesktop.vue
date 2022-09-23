@@ -35,7 +35,7 @@ export default {
         <div class="sidebar-panel__body">
           <div class="sidebar-panel__header mb-4">
             <div class="sidebar-panel__title h3 subtitle w-full">
-              <ProjectSelect />
+              <ProjectSelect :item-select="{id: 1, name: 'Проект Wiki'}" />
             </div>
           </div>
           <div class="sidebar-panel__wrapper">
