@@ -79,3 +79,5 @@ export default {
     <!--    Content / -->
   </div>
 </template>
+
+<style lang="scss" src="./page_content.scss"></style>

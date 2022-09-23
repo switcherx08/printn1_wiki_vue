@@ -7,6 +7,7 @@ export default {
       default: 'small' // small, middle, large
     }
   },
+  emits: ['close'],
   data() {
     return {
       is_show: false,
@@ -29,6 +30,7 @@ export default {
 
     hide() {
       this.is_show = false
+      this.$emit('close', true)
     },
   },
 }
@@ -37,7 +39,7 @@ export default {
 <template>
   <div class="modal z-50" :class="{'modal-open': is_show}">
     <div class="modal-box relative" :class="modalSizeClassList">
-      <button class="btn btn-sm btn-circle absolute right-2 top-2" @click="hide()">✕</button>
+      <button class="modal-close btn btn-sm btn-circle absolute right-2 top-2" @click="hide()">✕</button>
       <!-- Modal header -->
       <div v-if="$slots.header" class="modal-header">
         <slot name="header" />
@@ -55,5 +57,9 @@ export default {
 <style lang="scss">
 .modal {
   padding: 1rem;
+
+  &-close {
+    z-index: 12;
+  }
 }
 </style>

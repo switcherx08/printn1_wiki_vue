@@ -1,0 +1,53 @@
+.page-content-view {
+  h1, .h1,
+  h2, .h2,
+  h3, .h3,
+  h4, .h4,
+  h5, .h5,
+  h6, .h6 {
+    font-weight: 600;
+    margin-bottom: .5em;
+  }
+
+  h1, .h1 {
+    font-size: 1.5rem;
+  }
+
+  h2, .h2 {
+    font-size: 1.4rem;
+  }
+
+  h3, .h3 {
+    font-size: 1.3rem;
+  }
+
+  h4, .h4 {
+    font-size: 1.2rem;
+  }
+
+  h5, .h5 {
+    font-size: 1.1rem;
+  }
+
+  h6, .h6 {
+    font-size: 1rem;
+  }
+
+  p:not(:first-child),
+  blockquote:not(:first-child) {
+    margin: 1rem 0;
+  }
+
+  blockquote {
+    padding: 1em;
+    background-color: var(--widget-grey);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--dark-text);
+  }
+
+  // Components
+  .page-video,
+  .page-code {
+    margin: 1.5rem 0;
+  }
+}

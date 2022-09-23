@@ -14,3 +14,5 @@ export default {
     </div>
   </div>
 </template>
+
+<style lang="scss" src="./page_code.scss"></style>
