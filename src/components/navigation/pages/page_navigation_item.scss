@@ -110,6 +110,10 @@
     cursor: pointer;
   }
 
+  &__name.is_active {
+    color: var(--primary)
+  }
+
   &__name b {
     color: var(--title-grey);
   }

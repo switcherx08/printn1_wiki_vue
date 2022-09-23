@@ -15,7 +15,14 @@
         >
           <IconArrowBottom />
         </div>
-        <div v-else class="pages-nav-item__dot mr-3" @click="pushPage(itemData)"></div>
+        <router-link
+            v-else
+            :to="{name: 'page-view', params: { alias: itemData.alias }}"
+            exact
+            active-class="is_active"
+            class="pages-nav-item__dot mr-3"
+            @click="pushPage(itemData)"
+        ></router-link>
       </template>
       <template v-if="itemData.isMain">
         <div class="pages-nav-item__name w-full mr-3">
@@ -23,9 +30,15 @@
         </div>
       </template>
       <template v-else>
-        <div class="pages-nav-item__name w-full mr-3" @click="pushPage(itemData)">
+        <router-link
+            :to="{name: 'page-view', params: { alias: itemData.alias }}"
+            exact
+            active-class="is_active"
+            class="pages-nav-item__name w-full mr-3"
+            @click="pushPage(itemData)"
+        >
           {{itemData.name}}
-        </div>
+        </router-link>
       </template>
       <div class="pages-nav-item__buttons">
         <button type="button" class="pages-nav-item__button" @click="addPage(itemData)">
