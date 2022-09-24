@@ -1,4 +1,6 @@
 <script>
+import {useProjectStore} from "@/stores/project";
+
 export default {
   name: 'ProjectSelect',
   props: {
@@ -8,6 +10,10 @@ export default {
     },
   },
   emits: ['select'],
+  setup() {
+    const projectStore = useProjectStore()
+    return {projectStore}
+  },
   data() {
     return {
       projects: [
@@ -21,6 +27,7 @@ export default {
     select: {
       handler(){
         console.log('Change project...')
+        this.projectStore.fetchProject(this.select.id)
       },
       deep: true
     }

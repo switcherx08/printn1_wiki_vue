@@ -3,6 +3,7 @@ import {mapState} from 'pinia'
 import SidebarMainDesktop from "@/components/navigation/sidebar/sidebar_main/SidebarMainDesktop.vue";
 import {useSidebarStore} from "@/stores/sidebar";
 import {usePageStore} from "@/stores/page";
+import {useProjectStore} from "@/stores/project";
 
 export default {
   components: {
@@ -15,6 +16,10 @@ export default {
     ...mapState(usePageStore, {
       useContentInnerContainer: 'useContentInnerContainer'
     }),
+    ...mapState(useProjectStore, {
+      projectId: 'projectId'
+    }),
+
     pageTitle() {
       return this.$route.meta
       && this.$route.meta.page
@@ -22,6 +27,18 @@ export default {
           ? this.$route.meta.page.title : 'LinBoard'
     }
   },
+  watch: {
+    projectId() {
+      this.fetchProjectPages()
+      console.log('Return dashboard page')
+      this.$router.push({name: 'dashboard'})
+    }
+  },
+  methods: {
+    fetchProjectPages() {
+      console.log('Update project menu..')
+    }
+  }
 }
 </script>
 

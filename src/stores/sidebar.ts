@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia'
 import {useModuleStore} from './module'
 import IconMenu from "@//assets/api/sidebar_icon_menu.json";
-import PanelMenu from "@//assets/api/sidebar_panel_menu.json";
+// import PanelMenu from "@//assets/api/sidebar_panel_menu.json";
 
 export const useSidebarStore = defineStore('sidebar',{
     state: () => ({
