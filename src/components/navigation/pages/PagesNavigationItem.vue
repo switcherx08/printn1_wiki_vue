@@ -47,7 +47,6 @@
       </div>
     </div>
 
-    <!--      <template v-if="levelMenu <= 3">-->
     <div
         v-if="itemData.children"
         class="pages-nav-item__child"
@@ -60,8 +59,6 @@
             :level-data="levelMenu"
         />
     </div>
-    <!--      </template>-->
-
   </div>
 </template>
 
@@ -71,7 +68,7 @@ import IconArrowBottom from "@/components/icons/IconArrowBottom.vue";
 import IconPage from "@/components/icons/IconPage.vue";
 
 export default {
-  name: "PagesNavigationItem",
+  name: 'PagesNavigationItem',
   components: {IconPage, IconArrowBottom, IconPlus},
   props: {
     itemData: {

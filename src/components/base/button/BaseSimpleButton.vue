@@ -16,16 +16,6 @@ export default {
       required: false,
       default: false
     },
-    isElevated: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    isRounded: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
   },
   data() {
     return {
@@ -38,14 +28,11 @@ export default {
 <template>
   <button
       :class="[
-          'button button-simple',
+          'btn',
           buttonSizeClass,
-          {'is_outline': isOutline},
-          {'is_primary': isPrimary},
-          {'is_elevated': isElevated},
-          {'is-rounded': isRounded}
+          {'btn-outline': isOutline},
+          {'btn-primary': isPrimary},
       ]"
-
   >
     <span><slot /></span>
   </button>

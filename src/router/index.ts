@@ -40,6 +40,16 @@ const router = createRouter({
           component: () => import('@/views/project_view/list/ProjectList.vue'),
         },
         {
+          path: '/projects/:alias',
+          name: 'projects-view',
+          meta: {
+            layout: layouts.sidebar,
+            module: modules[0].dashboard,
+            page: {title: 'projects'}
+          },
+          component: () => import('@/views/project_view/view/ProjectView.vue'),
+        },
+        {
           path: '/create',
           name: 'projects-create',
           meta: {
