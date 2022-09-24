@@ -3,6 +3,8 @@ import {fileURLToPath, URL} from 'url'
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+const apiDomain = 'http://wiki.loc'
+
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue()],
@@ -15,10 +17,16 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: "http://wiki.loc/", // your-remote-domain.com
+                target: `${apiDomain}/api`, // your-remote-domain.com
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path) => path.replace(/^\/api/, ""),
+            },
+            '/sanctum': {
+                target: `${apiDomain}/sanctum`, // your-remote-domain.com
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace(/^\/sanctum/, ""),
             }
         }
     }

@@ -30,7 +30,7 @@ export const useAuthStore = defineStore({
         },
 
         fetchToken: async function (): Promise<void> {
-            await fetch("http://wiki.loc/sanctum/csrf-cookie", {
+            await fetch("/sanctum/csrf-cookie", {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -39,7 +39,8 @@ export const useAuthStore = defineStore({
         },
 
         fetchUser: async function (): Promise<void> {
-            await fetch("http://wiki.loc/api/user", {
+            await this.fetchToken()
+            await fetch("/api/user", {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
