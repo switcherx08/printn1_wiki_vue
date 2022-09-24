@@ -29,8 +29,17 @@ export const useAuthStore = defineStore({
             this._response = await data
         },
 
+        fetchToken: async function (): Promise<void> {
+            await fetch("http://wiki.loc/sanctum/csrf-cookie", {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            })
+        },
+
         fetchUser: async function (): Promise<void> {
-            await fetch("/api/user", {
+            await fetch("http://wiki.loc/api/user", {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -77,7 +86,7 @@ export const useAuthStore = defineStore({
                 })
         },
 
-        // async logout(data) {
+        // async logout() {
         //     await axios.post('/logout', data)
         //         .then((response) => {
         //             if (response.status === 200) {

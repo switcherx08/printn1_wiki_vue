@@ -15,7 +15,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: "http://lara2-crm.loc/", // your-remote-domain.com
+                target: "http://wiki.loc/", // your-remote-domain.com
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path) => path.replace(/^\/api/, ""),
