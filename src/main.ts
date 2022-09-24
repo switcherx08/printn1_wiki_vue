@@ -10,6 +10,7 @@ import router from './router'
 import VCalendar from 'v-calendar';
 import Notifications from '@kyvg/vue3-notification'
 // Components
+import AuthLayout from '@/layouts/auth_layout/AuthLayout.vue'
 import SidebarLayout from '@/layouts/sidebar_layout/SidebarLayout.vue'
 import ErrorLayout from '@/layouts/error_layout/ErrorLayout.vue'
 import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue'
@@ -24,8 +25,10 @@ app.use(VCalendar, {})
 app.use(Notifications)
 // Layouts
 app.component('BaseSimpleButton', BaseSimpleButton)
+app.component('AuthLayout', AuthLayout)
 app.component('SidebarLayout', SidebarLayout)
 app.component('ErrorLayout', ErrorLayout)
+
 // Components
 app.component('AvatarUser', AvatarUser)
 // directive

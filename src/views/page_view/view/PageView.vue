@@ -2,9 +2,6 @@
 import PageSections from '@/components/sections/page_sections/PageSections.vue';
 import BaseIconButton from "@/components/base/button/BaseIconButton.vue";
 import IconEdit from "@/components/icons/IconEdit.vue";
-import IconComment from "@/components/icons/IconComment.vue";
-import IconSettings from "@/components/icons/IconSettings.vue";
-import IconFavorite from "@/components/icons/IconFavorite.vue";
 import PageAuthors from "@/components/authors/page_authors/PageAuthors.vue";
 import PageContent from "@/components/content/page_content/PageContent.vue";
 import ModalDialog from "@/components/modal/ModalDialog.vue";
@@ -15,9 +12,6 @@ export default {
     ModalDialog,
     PageContent,
     PageAuthors,
-    IconFavorite,
-    IconSettings,
-    IconComment,
     IconEdit,
     PageSections,
     BaseIconButton

@@ -1,10 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // @ts-ignore
-import modules from "@//assets/api/modules.json";
+import modules from "@//assets/api/modules.json"
+// @ts-ignore
+import auth from '@/middleware/auth/auth'
+// @ts-ignore
+import middlewarePipeline from '@/middleware/middlewarePipeline'
 
 const layouts = {
   sidebar: 'sidebar-layout',
-  error: 'error-layout'
+  error: 'error-layout',
+  auth: 'auth-layout'
 }
 
 const router = createRouter({
@@ -14,6 +19,7 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       meta: {
+        middleware: [auth],
         layout: layouts.sidebar,
         module: modules[0].dashboard,
         page: {title: 'dashboard'}
@@ -103,6 +109,16 @@ const router = createRouter({
       ]
     },
     {
+      path: '/signin',
+      name: 'signin',
+      meta: {
+        layout: layouts.auth,
+        module: modules[0].dashboard,
+        page: {title: 'auth'}
+      },
+      component: () => import('@/views/auth_view/SignInView.vue')
+    },
+    {
       path: '/:catchAll(.*)',
       name: 'not-found',
       meta: {
@@ -113,6 +129,25 @@ const router = createRouter({
       component: () => import('@//views/error_view/not_found_view/NotFoundView.vue')
     },
   ]
+})
+
+// Start middleware
+router.beforeEach((to, from, next) => {
+  if (!to.meta.middleware) {
+    return next()
+  }
+  const middleware = to.meta.middleware
+
+  const context = {
+    to,
+    from,
+    next
+  }
+  // @ts-ignore
+  return middleware[0]({
+    ...context,
+    next: middlewarePipeline(context, middleware, 1)
+  })
 })
 
 export default router
