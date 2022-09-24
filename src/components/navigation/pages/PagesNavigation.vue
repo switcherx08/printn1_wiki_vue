@@ -18,7 +18,7 @@ export default {
   components: {PagesNavigationItem},
   data() {
     return {
-      mainPageItem: {id: 1, name: 'Страницы', isMain: true},
+      mainPageItem: {name: 'Страницы', isMain: true},
       pages: [
         {
           id: 1,

@@ -25,7 +25,7 @@
         ></router-link>
       </template>
       <template v-if="itemData.isMain">
-        <div class="pages-nav-item__name w-full mr-3">
+        <div class="pages-nav-item__name w-full mr-3 ">
           <b>{{itemData.name}}</b>
         </div>
       </template>
@@ -34,10 +34,10 @@
             :to="{name: 'page-view', params: { alias: itemData.alias }}"
             exact
             active-class="is_active"
-            class="pages-nav-item__name w-full mr-3"
+            class="pages-nav-item__name w-full mr-3 text-ellipsis"
             @click="pushPage(itemData)"
         >
-          {{itemData.name}}
+          <span class="text-ellipsis">{{itemData.name}}</span>
         </router-link>
       </template>
       <div class="pages-nav-item__buttons">
@@ -107,7 +107,11 @@ export default {
     },
 
     addPage(page) {
-      console.log('Add new page in ' + page.name)
+      if(page.isMain) {
+        this.$router.push({name: 'page-create'})
+      } else {
+        this.$router.push({name: 'page-create', query: {parentId: page.id}})
+      }
     }
 
   }

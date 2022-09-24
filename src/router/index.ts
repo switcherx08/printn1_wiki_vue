@@ -80,6 +80,16 @@ const router = createRouter({
           },
           component: () => import('@/views/page_view/view/PageView.vue'),
         },
+        {
+          path: '/page/create',
+          name: 'page-create',
+          meta: {
+            layout: layouts.sidebar,
+            module: modules[0].dashboard,
+            page: {title: 'projects-create'}
+          },
+          component: () => import('@/views/page_view/create/PageCreate.vue'),
+        }
       ]
     },
     {
