@@ -79,15 +79,15 @@ export default {
           <BaseIconButton size="middle" title="Редактировать" class="ml-2" @click="editContent()">
             <IconEdit width="21px" height="21px" />
           </BaseIconButton>
-          <BaseIconButton size="middle" title="Показать комментарии" class="ml-2" @click="viewComments()">
-            <IconComment width="25px" height="25px" />
-          </BaseIconButton>
-          <BaseIconButton size="middle" title="Отметить страницу" class="ml-2" @click="toggleFavorite()">
-            <IconFavorite width="25px" height="25px" />
-          </BaseIconButton>
-          <BaseIconButton size="middle" title="Другие действия" class="ml-2" @click="openSettings()">
-            <IconSettings width="20px" height="20px" />
-          </BaseIconButton>
+<!--          <BaseIconButton size="middle" title="Показать комментарии" class="ml-2" @click="viewComments()">-->
+<!--            <IconComment width="25px" height="25px" />-->
+<!--          </BaseIconButton>-->
+<!--          <BaseIconButton size="middle" title="Отметить страницу" class="ml-2" @click="toggleFavorite()">-->
+<!--            <IconFavorite width="25px" height="25px" />-->
+<!--          </BaseIconButton>-->
+<!--          <BaseIconButton size="middle" title="Другие действия" class="ml-2" @click="openSettings()">-->
+<!--            <IconSettings width="20px" height="20px" />-->
+<!--          </BaseIconButton>-->
         </div>
       </template>
       <template #header>

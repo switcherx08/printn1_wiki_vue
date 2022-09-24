@@ -6,7 +6,53 @@ import IconMenu from "@//assets/api/sidebar_icon_menu.json";
 export const useSidebarStore = defineStore('sidebar',{
     state: () => ({
         _iconMenu: {},
-        _panelMenu: {},
+        _panelMenu: [
+            {
+                id: 1,
+                name: 'Введение',
+                alias: 'page-1',
+                children: {
+                    0: {
+                        id: 11,
+                        name: 'Интерполяции',
+                        alias: 'page-2',
+                        children: {
+                            0: {
+                                id: 41,
+                                name: 'Аргументы 1',
+                                alias: 'page-3',
+                                children: {
+                                    0: {
+                                        id: 41,
+                                        name: 'Аргументы 2',
+                                        alias: 'page-4',
+                                    },
+                                    1: {id: 42, name: 'Динамические аргументы', alias: 'page-5',},
+                                    2: {id: 43, name: 'Модификаторы', alias: 'page-6',}
+                                }
+                            },
+                            1: {id: 42, name: 'Динамические аргументы', alias: 'page-7',},
+                            2: {id: 43, name: 'Модификаторы', alias: 'page-8',}
+                        }
+                    },
+                    1: {id: 12, name: 'Текст', alias: 'page-9',},
+                    2: {id: 13, name: 'Сырой HTML', alias: 'page-10',},
+                    3: {id: 14, name: 'Атрибуты', alias: 'page-11',},
+                    4: {
+                        id: 15,
+                        name: 'Директивы',
+                        alias: 'page-12',
+                        children: {
+                            0: {id: 41, name: 'Аргументы', alias: 'page-13',},
+                            1: {id: 42, name: 'Динамические аргументы', alias: 'page-14',},
+                            2: {id: 43, name: 'Модификаторы', alias: 'page-15',}
+                        }
+                    }
+                }
+            },
+            {id: 2, name: 'Экземпляр Vue', alias: 'page-16',},
+            {id: 3, name: 'Синтаксис шаблонов', alias: 'page-17',},
+        ],
         _panelMenuIsShow: true, // true
         _panelMenuIsView: true, // true
     }),
@@ -32,8 +78,9 @@ export const useSidebarStore = defineStore('sidebar',{
         },
         // async
         fetchPanelMenu() {
+            console.log('Update panel menu...')
             // await
-            this._panelMenu = PanelMenu
+            // this._panelMenu = PanelMenu
 
             // try {
             //     this._panelMenu = await fetch('/dist/api/sidebar_panel_menu.json')

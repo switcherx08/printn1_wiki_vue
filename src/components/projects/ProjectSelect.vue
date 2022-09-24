@@ -1,5 +1,6 @@
 <script>
 import {useProjectStore} from "@/stores/project";
+import {useLoaderStore} from "@/stores/loader";
 
 export default {
   name: 'ProjectSelect',
@@ -12,7 +13,8 @@ export default {
   emits: ['select'],
   setup() {
     const projectStore = useProjectStore()
-    return {projectStore}
+    const loaderStore = useLoaderStore()
+    return {projectStore, loaderStore}
   },
   data() {
     return {
@@ -25,8 +27,8 @@ export default {
   },
   watch: {
     select: {
-      handler(){
-        console.log('Change project...')
+      handler() {
+        this.loaderStore.startAppProgress(true)
         this.projectStore.fetchProject(this.select.id)
       },
       deep: true
