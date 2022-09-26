@@ -109,8 +109,8 @@ const router = createRouter({
       ]
     },
     {
-      path: '/signin',
-      name: 'signin',
+      path: '/sign-in',
+      name: 'sign-in',
       meta: {
         layout: layouts.auth,
         module: modules[0].dashboard,

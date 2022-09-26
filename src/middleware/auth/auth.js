@@ -1,11 +1,11 @@
 import { useAuthStore } from '@/stores/auth';
 
-export default function auth ({ next }){
+export default async function auth ({ next }){
     const authStore = useAuthStore()
-    authStore.fetchUser()
+    await authStore.fetchUser()
 
-    if(!authStore.loggedIn) {
-        return next({name: 'signin'})
+    if(await !authStore.loggedIn) {
+        return next({name: 'sign-in'})
     } else {
         return next()
     }

@@ -3,6 +3,7 @@ import {defineStore} from 'pinia'
 export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
+        _token: '',
         _user: {
             loggedIn: false,
             data: {}
@@ -10,6 +11,8 @@ export const useAuthStore = defineStore({
         _response:{}
     }),
     getters: {
+        token: (state) => state._token,
+
         user: (state) => state._user,
 
         loggedIn: (state) => state._user.loggedIn,
@@ -17,6 +20,14 @@ export const useAuthStore = defineStore({
         response: (state) => state._response,
     },
     actions: {
+        getToken() {
+            return this._token
+        },
+
+        setToken(data: string) {
+            this._token = data
+        },
+
         setLoggedIn(status: boolean) {
             this._user.loggedIn = status
         },
@@ -35,15 +46,22 @@ export const useAuthStore = defineStore({
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+            }).then(async response => {
+                const name = 'XSRF-TOKEN'
+                const matches = document.cookie.match(new RegExp(
+                    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+                ));
+                const token = matches ? decodeURIComponent(matches[1]) : '';
+                this.setToken(token)
             })
         },
 
         fetchUser: async function (): Promise<void> {
-            await this.fetchToken()
             await fetch("/api/user", {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': this.getToken()
                 },
             })
                 .then(async response => {
@@ -67,23 +85,26 @@ export const useAuthStore = defineStore({
 
         signIn: async function (data: object): Promise<void> {
             await fetch("/api/sign-in", {
+                method: "POST",
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': this.getToken()
                 },
                 body: JSON.stringify(data)
             })
                 .then(async response => {
+                    this.setResponse(response.json())
+
                     if (response.status === 200) {
                         this.setLoggedIn(true)
                     } else {
                         this.setLoggedIn(false)
                     }
-
-                    this.setResponse(response.json())
                 })
                 .catch(error => {
-                    console.log(error)
+                    // console.log(error)
+                    this.setResponse(error)
                 })
         },
 
@@ -96,6 +117,7 @@ export const useAuthStore = defineStore({
         //             }
         //         })
         // }
+
 
     }
 })

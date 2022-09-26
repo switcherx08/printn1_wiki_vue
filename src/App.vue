@@ -1,9 +1,12 @@
 <script setup>
+import { useAuthStore } from '@/stores/auth'
 import { useLoaderStore } from '@/stores/loader'
 import VNotify from "@/components/notification/V-Notify.vue";
 import VProgressLoader from "@/components/loader/V-ProgressLoader.vue";
 
 const loaderStore = useLoaderStore()
+const authStore = useAuthStore()
+authStore.fetchToken()
 </script>
 
 <template>
