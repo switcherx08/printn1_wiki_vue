@@ -4,6 +4,8 @@ import modules from "@//assets/api/modules.json"
 // @ts-ignore
 import auth from '@/middleware/auth/auth'
 // @ts-ignore
+import wiki from '@/middleware/wiki/wiki'
+// @ts-ignore
 import middlewarePipeline from '@/middleware/middlewarePipeline'
 
 const layouts = {
@@ -19,7 +21,7 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       meta: {
-        middleware: [auth],
+        middleware: [auth, wiki],
         layout: layouts.sidebar,
         module: modules[0].dashboard,
         page: {title: 'dashboard'}
