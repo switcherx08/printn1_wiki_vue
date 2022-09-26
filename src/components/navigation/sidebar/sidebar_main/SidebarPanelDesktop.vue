@@ -1,12 +1,17 @@
 <script>
-import { mapState, mapActions } from 'pinia'
-import { useSidebarStore } from '@/stores/sidebar';
+import { mapState } from 'pinia'
 import { useModuleStore } from '@/stores/module';
+import { useSidebarStore } from '@/stores/sidebar';
+import { useProjectStore } from "@/stores/project"
 import ProjectSelect from "@/components/projects/ProjectSelect.vue";
 import PagesNavigation from "@/components/navigation/pages/PagesNavigation.vue";
 
 export default {
   components: {PagesNavigation, ProjectSelect},
+  setup() {
+    const sidebarStore = useSidebarStore()
+    return {sidebarStore}
+  },
   computed: {
     ...mapState(useSidebarStore, {
       panelMenu: 'panelMenu',
@@ -16,14 +21,14 @@ export default {
     ...mapState(useModuleStore, {
       activeModule: 'activeModule'
     }),
+    ...mapState(useProjectStore, {
+      projectId: 'projectId'
+    }),
   },
-  async created() {
-    await this.fetchPanelMenu()
-  },
-  methods: {
-    ...mapActions(useSidebarStore, [
-      'fetchPanelMenu'
-    ])
+  watch: {
+    projectId() {
+      this.sidebarStore.fetchPanelMenu(this.projectId)
+    }
   }
 }
 </script>
@@ -35,7 +40,7 @@ export default {
         <div class="sidebar-panel__body">
           <div class="sidebar-panel__header mb-4">
             <div class="sidebar-panel__title h3 subtitle w-full">
-              <ProjectSelect :item-select="{id: 1, name: 'Проект Wiki'}" />
+              <ProjectSelect />
             </div>
           </div>
           <div class="sidebar-panel__wrapper">

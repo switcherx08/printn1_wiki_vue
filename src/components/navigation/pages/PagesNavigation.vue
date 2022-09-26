@@ -18,22 +18,23 @@ export default {
   data() {
     return {
       mainPageItem: {name: 'Страницы', isMain: true},
-      pages: this.sidebarStore.panelMenu
     }
   },
   computed: {
     ...mapState(useProjectStore, {
       projectId: 'projectId'
     }),
+    ...mapState(useSidebarStore, {
+      menu: 'panelMenu'
+    }),
   },
-  watch: {
-    projectId() {
-      this.loaderStore.startAppProgress(true)
-      this.sidebarStore.fetchPanelMenu()
-      this.$router.push({name: 'dashboard'})
-      this.loaderStore.startAppProgress(false)
-    },
-  },
+  // watch: {
+  //   projectId() {
+  //     this.loaderStore.startAppProgress(true)
+  //     this.$router.push({name: 'dashboard'})
+  //     this.loaderStore.startAppProgress(false)
+  //   },
+  // },
 }
 </script>
 
@@ -42,7 +43,7 @@ export default {
       <PagesNavigationItem :item-data="mainPageItem" :level-data="1" />
 
       <PagesNavigationItem
-          v-for="(page, pageIndex) in pages"
+          v-for="(page, pageIndex) in menu"
           :key="pageIndex"
           :item-data="page"
           :level-data="1"
