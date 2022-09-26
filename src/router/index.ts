@@ -31,6 +31,7 @@ const router = createRouter({
     {
       path: '/projects',
       meta: {
+        middleware: [auth, wiki],
         layout: layouts.sidebar,
         module: modules[0].dashboard,
         page: {title: 'projects'}
@@ -41,6 +42,7 @@ const router = createRouter({
           path: '',
           name: 'projects-list',
           meta: {
+            middleware: [auth, wiki],
             layout: layouts.sidebar,
             module: modules[0].dashboard,
             page: {title: 'projects-list'}
@@ -72,6 +74,7 @@ const router = createRouter({
     {
       path: '/page',
       meta: {
+        middleware: [auth, wiki],
         layout: layouts.sidebar,
         module: modules[0].dashboard,
         page: {title: 'page'}
@@ -82,6 +85,7 @@ const router = createRouter({
           path: '',
           name: 'page-list',
           meta: {
+            middleware: [auth, wiki],
             layout: layouts.sidebar,
             module: modules[0].dashboard,
             page: {title: 'page'}
@@ -92,6 +96,7 @@ const router = createRouter({
           path: '/page/:alias',
           name: 'page-view',
           meta: {
+            middleware: [auth, wiki],
             layout: layouts.sidebar,
             module: modules[0].dashboard,
             page: {title: 'page'}
@@ -102,6 +107,7 @@ const router = createRouter({
           path: '/page/create',
           name: 'page-create',
           meta: {
+            middleware: [auth, wiki],
             layout: layouts.sidebar,
             module: modules[0].dashboard,
             page: {title: 'projects-create'}

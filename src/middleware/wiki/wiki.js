@@ -6,10 +6,6 @@ export default async function wiki ({ next }){
     if(await !authStore.loggedIn) {
         return next({name: 'sign-in'})
     } else {
-
-        // Get project
-        // Get project menu
-
         return next()
     }
 }
