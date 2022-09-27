@@ -16,8 +16,7 @@ export default {
     return {projectStore, loaderStore}
   },
   computed: {
-    ...mapState(useProjectStore, ['list']),
-    ...mapState(useProjectStore, ['project']),
+    ...mapState(useProjectStore, ['list', 'project'])
   },
   methods: {
     selectOption(project) {
