@@ -8,6 +8,7 @@ export const useWikiDataStore = defineStore({
             id: 0,
             title: '',
             content: '',
+            alias: '',
             author: {}
         },
     }),
@@ -15,6 +16,7 @@ export const useWikiDataStore = defineStore({
         id: (state) => state._data.id,
         title: (state) => state._data.title,
         content: (state) => state._data.content,
+        alias: (state) => state._data.alias,
         author: (state) => state._data.author,
         data: (state) => state._data,
     },
@@ -36,7 +38,7 @@ export const useWikiDataStore = defineStore({
         },
 
         clearData() {
-            this._data = { title: '', content: '', author: {} }
+            this._data = { title: '', content: '', alias: '', author: {} }
         },
 
         async fetchWikiData(projectId: string ,alias: string) {

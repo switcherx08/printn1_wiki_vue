@@ -23,12 +23,16 @@ export default {
     selectOption(project) {
       this.loaderStore.startAppProgress(true)
       this.$router.push({name: 'dashboard'})
-      this.projectStore.setProject(project)
-      this.$emit('select', project)
 
       setTimeout(() => {
-        this.loaderStore.startAppProgress(false)
-      }, 2000)
+        this.projectStore.setProject(project)
+        this.$emit('select', project)
+
+        setTimeout(() => {
+          this.loaderStore.startAppProgress(false)
+        }, 1300)
+
+      }, 1600)
     },
 
     allProjects() {

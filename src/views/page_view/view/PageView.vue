@@ -48,6 +48,7 @@ export default {
       id: 'id',
       title: 'title',
       content: 'content',
+      alias: 'alias',
       author: 'author'
     }),
   },
@@ -61,7 +62,7 @@ export default {
         this.fetchData()
       },
       deep: true
-    }
+    },
   },
   created() {
     if(this.projectId && parseInt(this.projectId) !== 0) {
@@ -82,8 +83,10 @@ export default {
     },
 
     fetchData() {
-      this.wikiDataStore.fetchWikiData(this.projectId, this.$route.params.alias)
-    }
+      if(this.$route.params && this.$route.params.alias) {
+        this.wikiDataStore.fetchWikiData(this.projectId, this.$route.params.alias)
+      }
+    },
   },
 
   // eslint-disable-next-line vue/order-in-components
