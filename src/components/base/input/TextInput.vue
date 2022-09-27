@@ -55,7 +55,6 @@ export default {
       <template v-if="errors">
         <span class="label-text-alt text-red-500">{{errors}}</span>
       </template>
-<!--      <span class="label-text-alt">Alt label 2</span>-->
     </label>
   </div>
 </template>

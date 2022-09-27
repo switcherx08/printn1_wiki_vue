@@ -5,12 +5,14 @@ export const useProjectStore = defineStore({
     id: 'project',
     state: () => ({
         _project: {},
-        _list: {}
+        _list: {},
+        _response: {}
     }),
     getters: {
         list: (state) => state._list,
         project: (state) => state._project,
         projectId: (state) => state._project && state._project.id ? state._project.id : 0,
+        response: (state) => state._response,
     },
     actions: {
         setList(data: object) {
@@ -19,6 +21,10 @@ export const useProjectStore = defineStore({
 
         setProject(data: object) {
             this._project = data
+        },
+
+        setResponse(data: object) {
+            this._response = data
         },
 
         async fetchList() {

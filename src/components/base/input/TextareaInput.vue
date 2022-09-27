@@ -2,7 +2,7 @@
 export default {
   name: 'TextInput',
   props: {
-    fieldValue: {
+    modelValue: {
       type: [String, Number],
       default: ''
     },
@@ -14,13 +14,28 @@ export default {
       type: String,
       default: ''
     },
+    fieldErrors: {
+      type: [String, Object],
+      default: ''
+    },
   },
-  emits: ['change'],
-  data() {
-    return {
-      model: this.fieldValue
+  emits: ['update:modelValue'],
+  computed: {
+    errors() {
+      if(!this.fieldErrors) { return '' }
+
+      if (typeof this.fieldErrors === 'object') {
+        let str = ''
+        for (let i = 0; i < Object.keys(this.fieldErrors).length; i++) {
+          str = str + this.fieldErrors[i] + ' '
+        }
+
+        return str
+      }
+
+      return this.fieldErrors
     }
-  }
+  },
 }
 </script>
 
@@ -30,13 +45,15 @@ export default {
       <b class="label-text">{{fieldLabel}}</b>
     </label>
     <textarea
-        v-model="model"
         :placeholder="fieldPlaceholder"
         class="textarea textarea-bordered h-24"
+        :class="{'input-error': errors}"
+        @input="$emit('update:modelValue', $event.target.value)"
     ></textarea>
-<!--    <label class="label">-->
-<!--      <span class="label-text-alt">Your bio</span>-->
-<!--      <span class="label-text-alt">Alt label</span>-->
-<!--    </label>-->
+    <label class="label">
+      <template v-if="errors">
+        <span class="label-text-alt text-red-500">{{errors}}</span>
+      </template>
+    </label>
   </div>
 </template>

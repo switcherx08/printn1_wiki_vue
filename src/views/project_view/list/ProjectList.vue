@@ -19,7 +19,7 @@ export default {
 <template>
   <h1 class="mb-4">Проекты</h1>
 
-  <div class="grid grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     <div
         v-for="(item, projectIndex) in list" :key="projectIndex"
         class="card w-full bg-base-100"
