@@ -21,10 +21,10 @@ export default {
   },
   methods: {
     selectOption(project) {
-      this.projectStore.setProject(project)
-      this.$emit('select', project)
       this.loaderStore.startAppProgress(true)
       this.$router.push({name: 'dashboard'})
+      this.projectStore.setProject(project)
+      this.$emit('select', project)
 
       setTimeout(() => {
         this.loaderStore.startAppProgress(false)

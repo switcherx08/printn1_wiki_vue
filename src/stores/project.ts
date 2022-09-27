@@ -10,7 +10,7 @@ export const useProjectStore = defineStore({
     getters: {
         list: (state) => state._list,
         project: (state) => state._project,
-        projectId: (state) => state._project.id,
+        projectId: (state) => state._project && state._project.id ? state._project.id : 0,
     },
     actions: {
         setList(data: object) {

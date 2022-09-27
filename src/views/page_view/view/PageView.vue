@@ -45,6 +45,7 @@ export default {
       project: 'project'
     }),
     ...mapState(useWikiDataStore, {
+      id: 'id',
       title: 'title',
       content: 'content',
       author: 'author'

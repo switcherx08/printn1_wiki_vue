@@ -5,18 +5,24 @@ export const useWikiDataStore = defineStore({
     id: 'wikiData',
     state: () => ({
         _data: {
+            id: 0,
             title: '',
             content: '',
             author: {}
         },
     }),
     getters: {
+        id: (state) => state._data.id,
         title: (state) => state._data.title,
         content: (state) => state._data.content,
         author: (state) => state._data.author,
         data: (state) => state._data,
     },
     actions: {
+        setId(data: string) {
+            this._data.id = data
+        },
+
         setTitle(data: string) {
             this._data.title = data
         },
@@ -46,6 +52,7 @@ export const useWikiDataStore = defineStore({
                 .then(async response => {
                     if (response.status === 200) {
                         const data = await response.json()
+                        await this.setId(data.id)
                         await this.setTitle(data.name)
                         await this.setContent(data.content)
                         await this.setAuthor(data.author)
