@@ -63,6 +63,11 @@ export default {
       deep: true
     }
   },
+  created() {
+    if(this.projectId && parseInt(this.projectId) !== 0) {
+      this.fetchData()
+    }
+  },
   methods: {
     editContent() {
       this.changeMode(this.modeArray['edit'])
