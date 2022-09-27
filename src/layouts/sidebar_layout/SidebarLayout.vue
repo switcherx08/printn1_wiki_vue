@@ -32,14 +32,7 @@ export default {
     <SidebarMainDesktop/>
     <!-- View wrapper -->
     <div :class="[{'is-pushed-full': panelMenuIsShow}, `page-${$route.name}`]" class="view-wrapper" >
-      <div class="page-title flex">
-        <div class="page-content flex">
-          <div class="flex items-center mr-auto">
-            <h1 class="title-wrap">{{ pageTitle }}</h1>
-          </div>
-        </div>
-      </div>
-      <div class="page-content-inner">
+      <div class="page-content-inner py-8">
         <div :class="{'page-content': useContentInnerContainer}">
           <slot/>
         </div>

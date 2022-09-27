@@ -96,8 +96,6 @@ export default {
     },
 
     pushPage(page) {
-      console.log('Push to ' + page.name)
-
       if(page.children && Object.keys(page.children).length !== 0) {
         this.isOpen = true
       }

@@ -1,19 +1,20 @@
 <script>
-import AvatarUser from "@/components/base/avatar/AvatarUser.vue";
 export default {
   name: 'PageAuthors',
-  components: {AvatarUser}
+  props: {
+    itemData: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 
 <template>
   <div class="page-authors flex items-align">
-    <div class="page-authors__author flex justify-center mr-2">
-      <AvatarUser class="w-12" />
-    </div>
     <div class="page-authors__info flex flex-col justify-center">
-      <div class="text-sm text-slate-500">Автор: Евгений</div>
-      <div class="text-sm text-slate-500">Последнее обновление: февр. 21, 2022</div>
+      <div class="text-sm text-slate-500">Автор: {{itemData.name}}</div>
+      <div class="text-sm text-slate-500">Последнее обновление: {{itemData.updated_at}}</div>
     </div>
   </div>
 </template>
