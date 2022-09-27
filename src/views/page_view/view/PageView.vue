@@ -59,6 +59,7 @@ export default {
 
     route: {
       handler() {
+        this.viewContent()
         this.fetchData()
       },
       deep: true
@@ -72,6 +73,10 @@ export default {
   methods: {
     editContent() {
       this.changeMode(this.modeArray['edit'])
+    },
+
+    viewContent() {
+      this.changeMode(this.modeArray['view'])
     },
 
     openSettings() {
@@ -91,6 +96,7 @@ export default {
 
   // eslint-disable-next-line vue/order-in-components
   beforeUnmount() {
+    this.viewContent()
     this.wikiDataStore.clearData()
   },
 }
