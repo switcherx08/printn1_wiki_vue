@@ -105,7 +105,7 @@ export default {
   </template>
 
   <template v-else>
-    <PageSections>
+    <PageSections v-if="content">
       <template #widgets>
         <div class="flex ml-auto">
           <BaseIconButton size="middle" title="Редактировать" class="ml-2" @click="editContent()">
@@ -123,15 +123,15 @@ export default {
       <template #body>
         <PageContent :item-data="content" />
         <ModalDialog ref="SettingsModalDialog" size="middle">
-          <template #header>
-            <h3>Настройки страницы</h3>
-          </template>
-          <template #body>
-            <div class="mt-4">
-              Компонент настроек скранмцы...
-            </div>
-          </template>
-        </ModalDialog>
+            <template #header>
+              <h3>Настройки страницы</h3>
+            </template>
+            <template #body>
+              <div class="mt-4">
+                Компонент настроек скранмцы...
+              </div>
+            </template>
+          </ModalDialog>
       </template>
     </PageSections>
   </template>

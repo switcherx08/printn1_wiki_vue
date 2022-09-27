@@ -50,12 +50,11 @@ export const useWikiDataStore = defineStore({
                         await this.setContent(data.content)
                         await this.setAuthor(data.author)
                     } else {
-                        // this.setList({})
+                        this.clearData()
                     }
                 })
                 .catch(error => {
-                    // console.log(error)
-                    // this.setList({})
+                    this.clearData()
                 })
         },
     }
