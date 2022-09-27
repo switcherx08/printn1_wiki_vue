@@ -12,11 +12,13 @@ export default {
   },
   computed: {
     ...mapState(useProjectStore, ['list', 'project'])
-  },
+  }
 }
 </script>
 
 <template>
+  <h1 class="mb-4">Проекты</h1>
+
   <div class="grid grid-cols-3 gap-6">
     <div
         v-for="(item, projectIndex) in list" :key="projectIndex"

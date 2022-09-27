@@ -15,11 +15,13 @@ export default {
 </script>
 
 <template>
-  <div class="card w-full bg-base-100 shadow-xl">
+  <h1 class="mb-4">Новый проект</h1>
+
+  <div class="card w-full bg-base-100">
     <div class="card-body">
       <form
           @submit.prevent="submitForm()"
-          action="/api/page/create"
+          action="/api/project/create"
           method="POST"
       >
         <TextInput
