@@ -1,19 +1,21 @@
 <script>
-import { useRoute } from "vue-router"
+import {mapState} from 'pinia';
+import { useRoute } from 'vue-router'
 import PageSections from '@/components/sections/page_sections/PageSections.vue'
 import BaseIconButton from '@/components/base/button/BaseIconButton.vue'
 import IconEdit from '@/components/icons/IconEdit.vue'
 import IconSettings from '@/components/icons/IconSettings.vue'
 import PageAuthors from '@/components/authors/page_authors/PageAuthors.vue'
 import PageContent from '@/components/content/page_content/PageContent.vue'
+import PageEdit from "@/components/content/page_edit/PageEdit.vue";
 import ModalDialog from '@/components/modal/ModalDialog.vue'
 import {useWikiDataStore} from '@/stores/wikiData'
 import {useProjectStore} from '@/stores/project'
-import {mapState} from "pinia";
 
 export default {
   name: 'PageView',
   components: {
+    PageEdit,
     ModalDialog,
     PageContent,
     PageAuthors,
@@ -110,11 +112,8 @@ export default {
           Edit buttons...
         </div>
       </template>
-      <template #header>
-        Title page edit...
-      </template>
       <template #body>
-        Page edit component...
+        <PageEdit />
       </template>
     </PageSections>
   </template>
