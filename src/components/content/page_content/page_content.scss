@@ -33,6 +33,45 @@
     font-size: 1rem;
   }
 
+  ul, ol {
+    counter-reset: num;
+
+    & li {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    & li:not(:first-child),
+    & li:not(:last-child) {
+      margin: 1rem 0;
+    }
+  }
+
+  ul li {
+    &:before {
+      content: '';
+      position: absolute;
+      top: .62em;
+      left: .62em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: currentColor;
+    }
+  }
+
+  ol li {
+    &:before {
+      counter-increment: num 1;
+      content: counter(num, decimal) '.';
+      position: absolute;
+      top: 0;
+      left: .62em;
+      color: currentColor;
+    }
+  }
+
+  ul, ol,
   p:not(:first-child),
   blockquote:not(:first-child) {
     margin: 1rem 0;
