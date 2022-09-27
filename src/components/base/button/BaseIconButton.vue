@@ -1,10 +1,8 @@
 <template>
   <button
-      class="btn "
+      class="btn btn-circle"
       :class="[
           {'btn-outline': isOutline},
-          {'btn-circle': !isOutline},
-          {'btn-primary': isPrimary},
           {'btn-primary': isPrimary},
           initSize()
       ]"

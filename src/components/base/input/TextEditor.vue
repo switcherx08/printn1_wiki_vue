@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'TextInput',
+  name: 'TextEditor',
   props: {
     modelValue: {
       type: [String, Number],
@@ -40,18 +40,17 @@ export default {
 </script>
 
 <template>
-  <div class="form-control w-full">
-    <label v-if="fieldLabel" class="label">
+  <div class="text-editor form-control">
+    <label class="label">
       <b class="label-text">{{fieldLabel}}</b>
     </label>
-    <input
-        type="text"
+    <textarea
         :placeholder="fieldPlaceholder"
-        class="input input-bordered w-full"
+        class="textarea textarea-bordered h-24"
         :class="{'input-error': errors}"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-    />
+    ></textarea>
     <label class="label">
       <template v-if="errors">
         <span class="label-text-alt text-red-500">{{errors}}</span>
@@ -59,3 +58,12 @@ export default {
     </label>
   </div>
 </template>
+
+<style lang="scss">
+.text-editor {
+  textarea {
+    min-height: 65vh;
+  }
+}
+</style>
+

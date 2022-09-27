@@ -19,19 +19,29 @@ export default {
   },
   data() {
     return {
-      buttonSizeClass: 'button_' + this.size
+      sizeArray: {
+        'large': 'btn-lg',
+        'middle': 'btn-sm',
+        'small': 'btn-xs',
+      }
     }
   },
+  methods: {
+    initSize() {
+      if(!this.size) { return '' }
+      return this.sizeArray[this.size]
+    }
+  }
 }
 </script>
 
 <template>
   <button
+      class="btn"
       :class="[
-          'btn',
-          buttonSizeClass,
           {'btn-outline': isOutline},
           {'btn-primary': isPrimary},
+          initSize()
       ]"
   >
     <span><slot /></span>

@@ -1,6 +1,8 @@
 <script>
 import {mapState} from 'pinia';
 import { useRoute } from 'vue-router'
+import {useWikiDataStore} from '@/stores/wikiData'
+import {useProjectStore} from '@/stores/project'
 import PageSections from '@/components/sections/page_sections/PageSections.vue'
 import BaseIconButton from '@/components/base/button/BaseIconButton.vue'
 import IconEdit from '@/components/icons/IconEdit.vue'
@@ -9,12 +11,12 @@ import PageAuthors from '@/components/authors/page_authors/PageAuthors.vue'
 import PageContent from '@/components/content/page_content/PageContent.vue'
 import PageEdit from "@/components/content/page_edit/PageEdit.vue";
 import ModalDialog from '@/components/modal/ModalDialog.vue'
-import {useWikiDataStore} from '@/stores/wikiData'
-import {useProjectStore} from '@/stores/project'
+import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue';
 
 export default {
   name: 'PageView',
   components: {
+    BaseSimpleButton,
     PageEdit,
     ModalDialog,
     PageContent,
@@ -106,25 +108,24 @@ export default {
 
 <template>
   <template v-if="mode === 'edit'">
-    <PageSections class="-mt-4">
-      <template #widgets>
-        <div class="flex ml-auto">
-          Edit buttons...
-        </div>
+    <PageEdit>
+      <template #header>
+        <h1>Редактировать страницу</h1>
       </template>
-      <template #body>
-        <PageEdit />
-      </template>
-    </PageSections>
+    </PageEdit>
   </template>
 
   <template v-else>
     <PageSections v-if="content">
       <template #widgets>
         <div class="flex ml-auto">
-          <BaseIconButton size="middle" title="Редактировать" class="ml-2" @click="editContent()">
-            <IconEdit width="21px" height="21px" />
-          </BaseIconButton>
+          <BaseSimpleButton is-outline size="middle" class="ml-2" @click="editContent()">
+            <div class="flex items-center">
+              <IconEdit width="21px" height="21px" class="mr-1" />
+              <span class="my-auto">Редастировать</span>
+            </div>
+          </BaseSimpleButton>
+
           <BaseIconButton size="middle" title="Другие действия" class="ml-2" @click="openSettings()">
             <IconSettings width="20px" height="20px" />
           </BaseIconButton>

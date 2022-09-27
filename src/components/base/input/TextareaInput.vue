@@ -48,6 +48,7 @@ export default {
         :placeholder="fieldPlaceholder"
         class="textarea textarea-bordered h-24"
         :class="{'input-error': errors}"
+        :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
     ></textarea>
     <label class="label">
