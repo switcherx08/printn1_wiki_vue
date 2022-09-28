@@ -16,20 +16,62 @@ export default {
   },
   computed: {
     ...mapState(useWikiDataStore,{
+      id: 'id',
       title: 'title',
       content: 'content',
+      response: 'response',
     })
+  },
+  watch: {
+    response: {
+      handler(val) {
+        if(Object.keys(this.response).length !== 0) {
+          this.sendResponseManager(val)
+        }
+      },
+      deep: true
+    }
   },
   // eslint-disable-next-line vue/order-in-components
   data() {
     return {
       name: '',
       text: '',
+      errors: {name: '', text: ''}
     }
   },
   mounted() {
     this.name = this.title
     this.text = this.content
+  },
+  methods: {
+    submitForm() {
+      const data = {
+        id: this.id,
+        name: this.name,
+        text: this.text
+      }
+      this.wikiDataStore.sendCreateOrEdit(data, 'PUT')
+    },
+
+    sendResponseManager(data) {
+      if (data.errors) {
+        this.setErrors(data.errors)
+      } else {
+        this.setSuccess(data)
+      }
+    },
+
+    setErrors(errors) {
+      this.errors = errors
+    },
+
+    setSuccess(data) {
+      this.$notify({
+        title: data.title,
+        duration:10000
+      });
+    }
   }
 }
 </script>
@@ -41,9 +83,7 @@ export default {
     </template>
     <template #widgets>
       <div class="flex ml-auto">
-        <BaseSimpleButton is-primary>
-          Сохранить
-        </BaseSimpleButton>
+        <BaseSimpleButton is-primary is-outline size="middle" @click="submitForm()">Сохранить</BaseSimpleButton>
       </div>
     </template>
     <template #body>
@@ -53,6 +93,7 @@ export default {
             :model-value="name"
             field-label="Название"
             field-placeholder="Укажите название проекта"
+            :field-errors="errors.name"
             class="mb-2"
         />
 
@@ -62,6 +103,7 @@ export default {
               :model-value="text"
               field-label="Описание"
               field-placeholder="Укажите название проекта"
+              :field-errors="errors.text"
               class="w-full h-full"
           />
         </div>

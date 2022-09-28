@@ -11,6 +11,7 @@ export const useWikiDataStore = defineStore({
             alias: '',
             author: {}
         },
+        _response: {}
     }),
     getters: {
         id: (state) => state._data.id,
@@ -19,6 +20,7 @@ export const useWikiDataStore = defineStore({
         alias: (state) => state._data.alias,
         author: (state) => state._data.author,
         data: (state) => state._data,
+        response: (state) => state._response,
     },
     actions: {
         setId(data: string) {
@@ -37,11 +39,19 @@ export const useWikiDataStore = defineStore({
             this._data.author = data
         },
 
+        setResponse(data: object) {
+            this._response = data
+        },
+
         clearData() {
             this._data = { title: '', content: '', alias: '', author: {} }
         },
 
-        async fetchWikiData(projectId: string ,alias: string) {
+        clearResponse() {
+            this._response = {}
+        },
+
+        async fetchWikiData(projectId: string, alias: string) {
             const authStore = useAuthStore()
 
             await fetch(`/api/project/page-view/${projectId}/${alias}`, {
@@ -64,6 +74,30 @@ export const useWikiDataStore = defineStore({
                 })
                 .catch(error => {
                     this.clearData()
+                })
+        },
+
+        async sendCreateOrEdit(data: object, method: string = 'POST') {
+            const authStore = useAuthStore()
+
+            await fetch(`/api/wiki`, {
+                method: method,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': authStore.getToken()
+                },
+                body: JSON.stringify(data)
+            })
+                .then(async response => {
+                    const data = await response.json()
+                    await this.setResponse(data)
+                    await setTimeout(() => {
+                        this.clearResponse()
+                    }, 3000)
+                })
+                .catch(error => {
+                    // this.clearData()
                 })
         },
     }

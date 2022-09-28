@@ -119,7 +119,7 @@ export default {
     <PageSections v-if="content">
       <template #widgets>
         <div class="flex ml-auto">
-          <BaseSimpleButton is-outline size="middle" class="ml-2" @click="editContent()">
+          <BaseSimpleButton is-primary is-outline size="middle" class="ml-2" @click="editContent()">
             <div class="flex items-center">
               <IconEdit width="21px" height="21px" class="mr-1" />
               <span class="my-auto">Редастировать</span>
