@@ -91,7 +91,7 @@ export default {
 <template>
   <PageSections>
     <template #header>
-      <h1>Создать страницу {{ $route.query }}</h1>
+      <h1>Создать страницу</h1>
     </template>
     <template #widgets>
       <div class="flex ml-auto">
