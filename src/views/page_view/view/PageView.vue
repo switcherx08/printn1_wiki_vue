@@ -79,7 +79,8 @@ export default {
       this.changeMode(this.modeArray['edit'])
     },
 
-    viewContent() {
+    async viewContent() {
+      await this.fetchData()
       this.changeMode(this.modeArray['view'])
     },
 
@@ -116,13 +117,12 @@ export default {
         <BaseSimpleButton size="middle" class="ml-2" @click="viewContent()">
           Назад
         </BaseSimpleButton>
-
       </template>
     </PageEdit>
   </template>
 
   <template v-else>
-    <PageSections v-if="content">
+    <PageSections v-if="id">
       <template #widgets>
         <div class="flex ml-auto">
           <BaseSimpleButton is-primary is-outline size="middle" class="ml-2" @click="editContent()">
@@ -131,10 +131,9 @@ export default {
               <span class="my-auto">Редастировать</span>
             </div>
           </BaseSimpleButton>
-
-          <BaseIconButton size="middle" title="Другие действия" class="ml-2" @click="openSettings()">
-            <IconSettings width="20px" height="20px" />
-          </BaseIconButton>
+<!--          <BaseIconButton size="middle" title="Другие действия" class="ml-2" @click="openSettings()">-->
+<!--            <IconSettings width="20px" height="20px" />-->
+<!--          </BaseIconButton>-->
         </div>
       </template>
       <template #header>
@@ -143,16 +142,17 @@ export default {
       </template>
       <template #body>
         <PageContent :item-data="content" />
-        <ModalDialog ref="SettingsModalDialog" size="middle">
-            <template #header>
-              <h3>Настройки страницы</h3>
-            </template>
-            <template #body>
-              <div class="mt-4">
-                Компонент настроек скранмцы...
-              </div>
-            </template>
-          </ModalDialog>
+<!--        <ModalDialog ref="SettingsModalDialog" size="small">-->
+<!--            <template #header>-->
+<!--              <h3>Настройки страницы</h3>-->
+<!--            </template>-->
+<!--            <template #body>-->
+<!--              <div class="mt-4">-->
+<!--                Компонент настроек скранмцы...<br/>-->
+<!--                - удалить страницу<br/>-->
+<!--              </div>-->
+<!--            </template>-->
+<!--          </ModalDialog>-->
       </template>
     </PageSections>
   </template>

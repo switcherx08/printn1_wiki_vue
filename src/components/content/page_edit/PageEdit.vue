@@ -1,7 +1,7 @@
 <script>
 import {mapState} from 'pinia';
-import PageSections from '@/components/sections/page_sections/PageSections.vue'
 import { useWikiDataStore } from '@/stores/wikiData'
+import PageSections from '@/components/sections/page_sections/PageSections.vue'
 import TextInput from '@/components/base/input/TextInput.vue'
 import TextEditor from '@/components/base/input/TextEditor.vue'
 import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue';
@@ -88,7 +88,7 @@ export default {
       </div>
     </template>
     <template #body>
-      <form action="/" method="POST" class="flex flex-col w-full h-full">
+      <form action="/api/wiki" method="PUT" class="flex flex-col w-full h-full">
         <TextInput
             v-model="name"
             :model-value="name"

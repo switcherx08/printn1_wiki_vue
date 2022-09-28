@@ -23,16 +23,8 @@ export const useSidebarStore = defineStore('sidebar',{
         },
 
         // Fetch data
-        // async
         fetchIconMenu() {
             this._iconMenu = IconMenu
-
-            // try {
-                // this._iconMenu = await fetch('/dist/api/sidebar_icon_menu.json')
-                //     .then((response) => response.json())
-            // } catch (err) {
-            //     console.log(['Error', err])
-            // }
         },
 
         async fetchPanelMenu(projectId: number) {
