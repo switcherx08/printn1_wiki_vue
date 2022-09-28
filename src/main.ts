@@ -7,8 +7,9 @@ import App from './App.vue'
 import './assets/css/fonts.css'
 import './assets/scss/app.scss'
 import router from './router'
-import VCalendar from 'v-calendar';
 import Notifications from '@kyvg/vue3-notification'
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
 // Components
 import AuthLayout from '@/layouts/auth_layout/AuthLayout.vue'
 import SidebarLayout from '@/layouts/sidebar_layout/SidebarLayout.vue'
@@ -21,8 +22,8 @@ const app = createApp(App)
 // Use
 app.use(createPinia())
 app.use(router)
-app.use(VCalendar, {})
 app.use(Notifications)
+app.use(CKEditor)
 // Layouts
 app.component('BaseSimpleButton', BaseSimpleButton)
 app.component('AuthLayout', AuthLayout)

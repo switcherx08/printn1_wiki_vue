@@ -128,7 +128,7 @@ export default {
           <BaseSimpleButton is-primary is-outline size="middle" class="ml-2" @click="editContent()">
             <div class="flex items-center">
               <IconEdit width="21px" height="21px" class="mr-1" />
-              <span class="my-auto">Редастировать</span>
+              <span class="my-auto">Редактировать</span>
             </div>
           </BaseSimpleButton>
 <!--          <BaseIconButton size="middle" title="Другие действия" class="ml-2" @click="openSettings()">-->
