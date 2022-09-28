@@ -112,6 +112,12 @@ export default {
       <template #header>
         <h1>Редактировать страницу</h1>
       </template>
+      <template #widgets>
+        <BaseSimpleButton size="middle" class="ml-2" @click="viewContent()">
+          Назад
+        </BaseSimpleButton>
+
+      </template>
     </PageEdit>
   </template>
 

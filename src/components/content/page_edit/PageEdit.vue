@@ -83,7 +83,8 @@ export default {
     </template>
     <template #widgets>
       <div class="flex ml-auto">
-        <BaseSimpleButton is-primary is-outline size="middle" @click="submitForm()">Сохранить</BaseSimpleButton>
+        <slot name="widgets" />
+        <BaseSimpleButton is-primary is-outline size="middle" class="ml-2" @click="submitForm()">Сохранить</BaseSimpleButton>
       </div>
     </template>
     <template #body>
