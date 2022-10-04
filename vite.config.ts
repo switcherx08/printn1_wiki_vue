@@ -1,3 +1,4 @@
+// https://vitejs.dev/config/
 import {fileURLToPath, URL} from 'url'
 import {defineConfig, loadEnv} from 'vite'
 const { resolve } = require('path')
