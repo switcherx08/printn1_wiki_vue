@@ -1,8 +1,13 @@
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Editor from '@tinymce/tinymce-vue'
 
 export default {
   name: 'TextEditor',
+
+  components: {
+    'editor': Editor
+  },
+
   props: {
     modelValue: {
       type: [String, Number],
@@ -21,29 +26,49 @@ export default {
       default: ''
     },
   },
+
   emits: ['update:modelValue'],
+
+  setup() {
+    const plugins = 'print casechange tinydrive advcode visualblocks image link codesample table hr pagebreak ' +
+        'nonbreaking anchor lists checklist textpattern noneditable formatpainter quickbars advtable export'
+
+    const toolbar = [
+      { name: 'format', items: [ 'formatselect'] },
+      { name: 'formatting', items: [ 'bold', 'italic', 'underline', 'strikethrough', 'casechange', 'subscript', 'superscript' ] },
+      { name: 'list', items: [ 'checklist', 'numlist', 'bullist' ] },
+      { name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright', 'alignjustify', 'alignnone' ] },
+      { name: 'color', items: [ 'forecolor', 'backcolor' ] },
+      { name: 'size', items: [ 'fontsizeselect' ] },
+      { name: 'indentation', items: [ 'outdent', 'indent' ] },
+      { name: 'style', items: [ 'removeformat', 'formatpainter' ] },
+      { name: 'formatting', items: [ 'blockquote', 'codesample', 'hr', 'pagebreak' ] },
+      { name: 'table', items: [ 'table' ] },
+      { name: 'file', items: [ 'image', 'insertfile', 'link' ] },
+      { name: 'other', items: [ 'anchor', 'visualblocks', 'print', 'inlinecode', 'selectall', 'export', 'code' ] },
+    ]
+
+    const menubar = ''
+
+    return {plugins, toolbar, menubar}
+  },
+
   data() {
     return {
-      editor: ClassicEditor,
-      editorConfig: {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-        heading: {
-          options: [
-            { model: 'paragraph', title: 'Параграф', class: 'ck-heading_paragraph' },
-            { model: 'heading1', view: 'h1', title: 'Заголовок  H1', class: 'ck-heading_heading1' },
-            { model: 'heading2', view: 'h2', title: 'Заголовок  H2', class: 'ck-heading_heading2' },
-            { model: 'heading3', view: 'h3', title: 'Заголовок  H3', class: 'ck-heading_heading3' },
-            { model: 'heading4', view: 'h4', title: 'Заголовок  H4', class: 'ck-heading_heading4' },
-            { model: 'heading5', view: 'h5', title: 'Заголовок  H5', class: 'ck-heading_heading5' },
-            { model: 'heading6', view: 'h6', title: 'Заголовок  H6', class: 'ck-heading_heading6' },
-          ]
-        }
-      }
+      apiKey: 'rpphwlv2t4540b2n4lhq7otnvatkghwr7x01n591hs9cdqff',
+      config: {
+        plugins: this.plugins,
+        toolbar: this.toolbar,
+        menubar: this.menubar,
+      },
     }
   },
+
   computed: {
     errors() {
-      if(!this.fieldErrors) { return '' }
+      if (!this.fieldErrors) {
+        return ''
+      }
 
       if (typeof this.fieldErrors === 'object') {
         let str = ''
@@ -57,6 +82,7 @@ export default {
       return this.fieldErrors
     }
   },
+
   watch: {
     modelValue() {
       this.$emit('update:modelValue', this.modelValue)
@@ -68,17 +94,14 @@ export default {
 <template>
   <div class="text-editor form-control">
     <label class="label">
-      <b class="label-text">{{fieldLabel}}</b>
+      <b class="label-text">{{ fieldLabel }}</b>
     </label>
-    <ckeditor
-        :editor="editor"
-        v-model="modelValue"
-        :config="editorConfig"
-    ></ckeditor>
+
+    <editor :api-key='apiKey' :init="config" v-model="modelValue" />
 
     <label class="label">
       <template v-if="errors">
-        <span class="label-text-alt text-red-500">{{errors}}</span>
+        <span class="label-text-alt text-red-500">{{ errors }}</span>
       </template>
     </label>
   </div>
