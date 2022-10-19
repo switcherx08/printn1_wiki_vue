@@ -7,7 +7,6 @@ import App from './App.vue'
 import './assets/scss/app.scss'
 import router from './router'
 import Notifications from '@kyvg/vue3-notification'
-// import CKEditor from '@ckeditor/ckeditor5-vue';
 
 // Components
 import AuthLayout from '@/layouts/auth_layout/AuthLayout.vue'
@@ -22,7 +21,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(Notifications)
-// app.use(CKEditor)
 // Layouts
 app.component('BaseSimpleButton', BaseSimpleButton)
 app.component('AuthLayout', AuthLayout)
