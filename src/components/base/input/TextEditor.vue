@@ -1,5 +1,6 @@
 <script>
 import Editor from '@tinymce/tinymce-vue'
+import {useAuthStore} from "@/stores/auth";
 
 export default {
   name: 'TextEditor',
@@ -30,9 +31,12 @@ export default {
   emits: ['update:modelValue'],
 
   setup() {
-    const api = 'rpphwlv2t4540b2n4lhq7otnvatkghwr7x01n591hs9cdqff'
+    const authStore = useAuthStore()
 
-    const plugins = 'print casechange tinydrive advcode visualblocks image link codesample table hr pagebreak ' +
+    const apiKey = 'rpphwlv2t4540b2n4lhq7otnvatkghwr7x01n591hs9cdqff'
+
+    // tinydrive
+    const plugins = 'print casechange advcode visualblocks image link codesample table hr pagebreak ' +
         'nonbreaking anchor lists checklist textpattern noneditable formatpainter quickbars advtable export'
 
     const toolbar = [
@@ -50,16 +54,20 @@ export default {
       { name: 'other', items: [ 'anchor', 'visualblocks', 'print', 'inlinecode', 'selectall', 'export', 'code' ] },
     ]
 
-    return {api, plugins, toolbar}
+    return {authStore, apiKey, plugins, toolbar}
   },
 
   data() {
     return {
-      apiKey: this.api,
       config: {
         plugins: this.plugins,
         toolbar: this.toolbar,
         menubar: '',
+        images_upload_url: '/api/upload/image',
+        images_upload_base_path: '/api/image/',
+        images_upload_credentials: true,
+        images_reuse_filename: true,
+        images_upload_handler: this.imagesUploadHandler
       },
     }
   },
@@ -87,6 +95,53 @@ export default {
     modelValue() {
       this.$emit('update:modelValue', this.modelValue)
     }
+  },
+
+  methods: {
+    imagesUploadHandler(blobInfo, success, failure, progress) {
+      const token = this.authStore.token;
+
+      let xhr = new XMLHttpRequest()
+      xhr.withCredentials = false;
+      xhr.open('POST', '/api/upload/image');
+      xhr.setRequestHeader("X-XSRF-TOKEN", token);
+
+      xhr.upload.onprogress = function (e) {
+        progress(e.loaded / e.total * 100);
+      };
+
+      xhr.onload = function() {
+        var json;
+
+        if (xhr.status === 403) {
+          failure('HTTP Error: ' + xhr.status, { remove: true });
+          return;
+        }
+
+        if (xhr.status < 200 || xhr.status >= 300) {
+          failure('HTTP Error: ' + xhr.status);
+          return;
+        }
+
+        json = JSON.parse(xhr.responseText);
+
+        if (!json || typeof json.location != 'string') {
+          failure('Invalid JSON: ' + xhr.responseText);
+          return;
+        }
+
+        success(json.location);
+      };
+
+      xhr.onerror = function () {
+        failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+      };
+
+      let formData = new FormData();
+      formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+      xhr.send(formData);
+    }
   }
 }
 </script>
@@ -97,7 +152,11 @@ export default {
       <b class="label-text">{{ fieldLabel }}</b>
     </label>
 
-    <editor :api-key='apiKey' :init="config" v-model="modelValue" />
+    <editor
+        v-model="modelValue"
+        :api-key='apiKey'
+        :init="config"
+    />
 
     <label class="label">
       <template v-if="errors">
