@@ -1,11 +1,15 @@
 <template>
   <div class="page_sections">
-    <div v-if="$slots.widgets" class="page_sections__widgets flex mb-2">
-      <slot name="widgets" />
+    <div class="flex w-full mb-6">
+      <div v-if="$slots.header" class="page_sections__header w-full">
+        <slot name="header" />
+      </div>
+
+      <div v-if="$slots.widgets" class="page_sections__widgets flex justify-end w-full">
+        <slot name="widgets" />
+      </div>
     </div>
-    <div v-if="$slots.header" class="page_sections__header mb-4">
-      <slot name="header" />
-    </div>
+
     <div class="page_sections__body mt-6">
       <slot name="body" />
     </div>

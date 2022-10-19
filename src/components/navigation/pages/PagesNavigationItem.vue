@@ -17,7 +17,7 @@
         </div>
         <router-link
             v-else
-            :to="{name: 'page-view', params: { alias: itemData.alias }}"
+            :to="{name: 'page-view', params: { id: itemData.id }}"
             exact
             active-class="is_active"
             class="pages-nav-item__dot mr-3"
@@ -31,7 +31,7 @@
       </template>
       <template v-else>
         <router-link
-            :to="{name: 'page-view', params: { alias: itemData.alias }}"
+            :to="{name: 'page-view', params: { id: itemData.id }}"
             exact
             active-class="is_active"
             class="pages-nav-item__name w-full mr-3 text-ellipsis"

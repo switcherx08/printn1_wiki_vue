@@ -55,7 +55,7 @@ export default {
           Идут работы по доработке компонентов приложения
         </div>
         <div class="mt-4">
-          <router-link :to="{name: 'page-view', params: { alias: 'get-started' }}" class="btn btn-sm">
+          <router-link :to="{name: 'page-view', params: { id: '1' }}" class="btn btn-sm">
             Перейти к введению
           </router-link>
         </div>

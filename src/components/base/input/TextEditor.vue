@@ -54,7 +54,9 @@ export default {
       { name: 'other', items: [ 'anchor', 'visualblocks', 'print', 'inlinecode', 'selectall', 'export', 'code' ] },
     ]
 
-    return {authStore, apiKey, plugins, toolbar}
+    const contextmenu = 'link image table checklist hr pagebreak visualblocks selectall'
+
+    return {authStore, apiKey, plugins, toolbar, contextmenu}
   },
 
   data() {
@@ -62,12 +64,15 @@ export default {
       config: {
         plugins: this.plugins,
         toolbar: this.toolbar,
+        contextmenu: this.contextmenu,
         menubar: '',
         images_upload_url: '/api/upload/image',
         images_upload_base_path: '/api/image/',
         images_upload_credentials: true,
         images_reuse_filename: true,
-        images_upload_handler: this.imagesUploadHandler
+        images_upload_handler: this.imagesUploadHandler,
+        content_css: ['/css/text_editor/text_editor_css.css'],
+        content_style: ['/css/text_editor/text_editor_content_css.css'],
       },
     }
   },
@@ -166,5 +171,19 @@ export default {
   </div>
 </template>
 
-<style lang="scss" src="./text_editor.scss"></style>
+<style lang="scss">
+.tox-tinymce {
+  height: 100%;
+  min-height: 100vmax;
+  border: none !important;
+}
+
+.tox-editor-container {
+  border-radius: var(--border-radius);
+}
+
+.tox-statusbar {
+  display: none !important;
+}
+</style>
 

@@ -93,7 +93,7 @@ const router = createRouter({
           component: () => import('@/views/page_view/list/PageList.vue'),
         },
         {
-          path: '/page/:alias',
+          path: '/page/:id',
           name: 'page-view',
           meta: {
             middleware: [auth, wiki],
@@ -102,6 +102,17 @@ const router = createRouter({
             page: {title: 'page'}
           },
           component: () => import('@/views/page_view/view/PageView.vue'),
+        },
+        {
+          path: '/page/edit/:id',
+          name: 'page-edit',
+          meta: {
+            middleware: [auth, wiki],
+            layout: layouts.sidebar,
+            module: modules[0].dashboard,
+            page: {title: 'page'}
+          },
+          component: () => import('@/views/page_view/edit/PageEdit.vue'),
         },
         {
           path: '/page/create',

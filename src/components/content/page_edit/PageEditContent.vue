@@ -7,7 +7,7 @@ import TextEditor from '@/components/base/input/TextEditor.vue'
 import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue';
 
 export default {
-  name: 'PageCreate',
+  name: 'PageEditContent',
   components: {PageSections, TextEditor, TextInput, BaseSimpleButton},
   setup() {
     const wikiDataStore = useWikiDataStore()
@@ -84,7 +84,6 @@ export default {
     <template #widgets>
       <div class="flex ml-auto">
         <slot name="widgets" />
-        <BaseSimpleButton is-primary is-outline size="middle" class="ml-2" @click="submitForm()">Сохранить</BaseSimpleButton>
       </div>
     </template>
     <template #body>

@@ -10,12 +10,14 @@ import TextEditor from '@/components/base/input/TextEditor.vue';
 
 export default {
   name: 'PageCreate',
+
   components: {
     TextEditor,
     TextInput,
     BaseSimpleButton,
     PageSections
   },
+
   setup() {
     const wikiDataStore = useWikiDataStore()
     const projectStore = useProjectStore()
@@ -23,6 +25,7 @@ export default {
 
     return {wikiDataStore, projectStore, sidebarStore}
   },
+
   computed: {
     ...mapState(useWikiDataStore,{
       response: 'response',
@@ -31,6 +34,7 @@ export default {
       projectId: 'projectId',
     })
   },
+
   watch: {
     response: {
       handler(val) {
@@ -41,6 +45,7 @@ export default {
       deep: true
     }
   },
+
   // eslint-disable-next-line vue/order-in-components
   data() {
     return {
@@ -49,6 +54,7 @@ export default {
       errors: {name: '', text: ''}
     }
   },
+
   methods: {
     submitForm() {
       const data = {
@@ -81,10 +87,10 @@ export default {
       // Update panel menu
       this.sidebarStore.fetchPanelMenu(this.projectId)
       // Redirect to view page
-      const alias = data.data.alias
-      this.$router.push({name: 'page-view', params: { alias: alias }})
+      const id = data.data.id
+      this.$router.push({name: 'page-view', params: { id: id }})
     }
-  }
+  },
 }
 </script>
 

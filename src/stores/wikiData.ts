@@ -51,10 +51,10 @@ export const useWikiDataStore = defineStore({
             this._response = {}
         },
 
-        async fetchWikiData(projectId: string, alias: string) {
+        async fetchWikiData(id: string) {
             const authStore = useAuthStore()
 
-            await fetch(`/api/project/page-view/${projectId}/${alias}`, {
+            await fetch(`/api/project/page-view/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

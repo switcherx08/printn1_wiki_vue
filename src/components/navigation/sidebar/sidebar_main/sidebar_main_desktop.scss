@@ -8,7 +8,7 @@ $sidebarWidth: 80px;
   height: 100vh;
   background-color: var(--background-grey);
   box-shadow: none;
-  z-index: 31;
+  z-index: 99;
   transition: border-radius 0.3s ease-in, background-color 0.3s ease-in, top 0.3s ease-in, margin-left 0.3s ease-in, height 0.3s ease-in;
 }
 
