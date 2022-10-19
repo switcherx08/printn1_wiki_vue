@@ -30,6 +30,8 @@ export default {
   emits: ['update:modelValue'],
 
   setup() {
+    const api = 'rpphwlv2t4540b2n4lhq7otnvatkghwr7x01n591hs9cdqff'
+
     const plugins = 'print casechange tinydrive advcode visualblocks image link codesample table hr pagebreak ' +
         'nonbreaking anchor lists checklist textpattern noneditable formatpainter quickbars advtable export'
 
@@ -48,18 +50,16 @@ export default {
       { name: 'other', items: [ 'anchor', 'visualblocks', 'print', 'inlinecode', 'selectall', 'export', 'code' ] },
     ]
 
-    const menubar = ''
-
-    return {plugins, toolbar, menubar}
+    return {api, plugins, toolbar}
   },
 
   data() {
     return {
-      apiKey: 'rpphwlv2t4540b2n4lhq7otnvatkghwr7x01n591hs9cdqff',
+      apiKey: this.api,
       config: {
         plugins: this.plugins,
         toolbar: this.toolbar,
-        menubar: this.menubar,
+        menubar: '',
       },
     }
   },
