@@ -2,7 +2,6 @@
 import {mapState} from "pinia";
 import PagesNavigationItem from "./PagesNavigationItem.vue";
 import {useSidebarStore} from "@/stores/sidebar";
-// import {useProjectStore} from "@/stores/project";
 import {useLoaderStore} from "@/stores/loader";
 
 export default {
@@ -10,12 +9,10 @@ export default {
   components: {PagesNavigationItem},
   setup() {
     const sidebarStore = useSidebarStore()
-    // const projectStore = useProjectStore()
     const loaderStore = useLoaderStore()
 
     return {
       sidebarStore,
-      // projectStore,
       loaderStore
     }
   },
@@ -25,9 +22,6 @@ export default {
     }
   },
   computed: {
-    // ...mapState(useProjectStore, {
-    //   projectId: 'projectId'
-    // }),
     ...mapState(useSidebarStore, {
       menu: 'panelMenu'
     }),

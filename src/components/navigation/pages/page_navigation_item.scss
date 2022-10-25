@@ -18,7 +18,7 @@
     cursor: pointer;
   }
 
-  &__box:hover:after {
+  &:not(.dragging) &__box:hover:after {
     background-color: var(--background-grey);
   }
 
@@ -74,7 +74,7 @@
     display: none;
   }
 
-  &__box:hover &__buttons {
+  &:not(.dragging) &__box:hover &__buttons {
     display: flex;
   }
 
@@ -89,7 +89,7 @@
     cursor: pointer;
   }
 
-  &__button:hover {
+  &:not(.dragging) &__button:hover {
     background-color: var(--border-color);
   }
 
@@ -131,5 +131,9 @@
 
   &__child.is_open {
     max-height: 3024px;
+  }
+
+  &[draggable="true"] a {
+    pointer-events: none;
   }
 }

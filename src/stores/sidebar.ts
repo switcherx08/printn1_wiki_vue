@@ -9,6 +9,12 @@ export const useSidebarStore = defineStore('sidebar',{
         _panelMenu: {},
         _panelMenuIsShow: true, // true
         _panelMenuIsView: true, // true
+        _dragging: true,
+        _dragOptions: {
+            animation: 400,
+            group: "menu",
+        },
+
     }),
     getters: {
         iconMenu: (state) => state._iconMenu,
@@ -16,10 +22,19 @@ export const useSidebarStore = defineStore('sidebar',{
         panelMenu: (state) => state._panelMenu,
         panelMenuIsShow: (state) => state._panelMenuIsShow,
         panelMenuIsView: (state) => state._panelMenuIsView,
+        dragging: (state) => state._dragging,
+        dragOptions: (state) => state._dragOptions,
     },
     actions: {
         setPanelMenu(data: object) {
             this._panelMenu = data
+        },
+
+        setDragPanelMenu(data: object) {
+            this._panelMenu = data.map((el, index) => {
+                el.sort = index + 1
+                return el;
+            })
         },
 
         // Fetch data
