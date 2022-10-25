@@ -1,4 +1,6 @@
 <script>
+const body = document.querySelector('body')
+
 export default {
   name: "ModalDialog",
   props: {
@@ -14,13 +16,18 @@ export default {
       modalSizeClassList: ''
     }
   },
+  watch: {
+    is_show() {
+      body.classList.toggle('overflow_hidden')
+    }
+  },
   created() {
     if (this.size === 'middle') {
       this.modalSizeClassList = 'w-11/12 max-w-5xl'
     }
 
     if (this.size === 'large') {
-      this.modalSizeClassList = 'w-screen max-w-screen-2xl'
+      this.modalSizeClassList = 'w-screen max-w-full h-full'
     }
   },
   methods: {
@@ -57,6 +64,7 @@ export default {
 <style lang="scss">
 .modal {
   padding: 1rem;
+  z-index: 99;
 
   &-close {
     z-index: 12;

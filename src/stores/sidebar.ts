@@ -9,7 +9,6 @@ export const useSidebarStore = defineStore('sidebar',{
         _panelMenu: {},
         _panelMenuIsShow: true, // true
         _panelMenuIsView: true, // true
-        _dragging: true,
         _dragOptions: {
             animation: 400,
             group: "menu",
@@ -22,7 +21,6 @@ export const useSidebarStore = defineStore('sidebar',{
         panelMenu: (state) => state._panelMenu,
         panelMenuIsShow: (state) => state._panelMenuIsShow,
         panelMenuIsView: (state) => state._panelMenuIsView,
-        dragging: (state) => state._dragging,
         dragOptions: (state) => state._dragOptions,
     },
     actions: {
@@ -64,6 +62,16 @@ export const useSidebarStore = defineStore('sidebar',{
                     // console.log(error)
                     this.setPanelMenu({})
                 })
+        },
+
+        // Transform
+        transformMenuItemToArray(itemData: object) {
+            let result = []
+            for(let item in itemData) {
+                result.push(itemData[item])
+            }
+
+            return result
         },
 
         // Show panel menu
