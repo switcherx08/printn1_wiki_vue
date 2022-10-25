@@ -10,8 +10,7 @@ export const useSidebarStore = defineStore('sidebar',{
         _panelMenuIsShow: true, // true
         _panelMenuIsView: true, // true
         _dragOptions: {
-            animation: 400,
-            group: "menu",
+            animation: 400
         },
 
     }),

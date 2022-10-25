@@ -8,6 +8,10 @@ export default {
   components: {draggable},
 
   props: {
+    levelData: {
+      type: Number,
+      default: 1
+    },
     itemData: {
       type: Object,
       required: true
@@ -59,17 +63,21 @@ export default {
     <draggable
         class="flex flex-col"
         :list="menuData"
-        group="menu"
+        group="children"
         v-bind="dragOptions"
         item-key="id"
     >
-      <template #item="{ element }">
-        <div class="mt-2 py-2 px-4">
+      <template #item="{ element, index }">
+        <div class="edit-menu-item">
           <div class="flex flex-col">
-            <div>{{ element.name }}</div>
+            <div class="edit-menu-item__name text-ellipsis">{{ element.name }} - {{index}}</div>
 
-            <div v-if="element.children" class="edit-menu__card-list pb-4">
-              <PagesNavigationEditChildItem :item-data="element.children" :drag-options="dragOptions"/>
+            <div class="edit-menu__card-list">
+              <PagesNavigationEditChildItem
+                  :item-data="element.children"
+                  :drag-options="dragOptions"
+                  :level-data="1 + 1"
+              />
             </div>
           </div>
         </div>
@@ -78,3 +86,32 @@ export default {
   </template>
 </template>
 
+<style lang="scss">
+.edit-menu-item {
+  padding: 5px 12px;
+  margin-top: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  transition: all .3s ease-in-out;
+
+  & & {
+    margin-left: 10px;
+  }
+
+  &:hover {
+    background-color: var(--body-color);
+    cursor: pointer;
+  }
+
+  & &:hover {
+    background-color: rgba(0,0,0,.05);
+    cursor: pointer;
+  }
+
+  &__name {
+    font-weight: 600;
+    color: #5c5c5c;
+    font-size: .75rem;
+  }
+}
+</style>

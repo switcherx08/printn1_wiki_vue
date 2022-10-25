@@ -41,25 +41,31 @@ export default {
 </script>
 
 <template>
-  <div class="edit-menu">
+  <div class="edit-menu flex flex-col">
+<!--    grid grid-cols-4 gap-6 w-full-->
     <draggable
-        class="grid grid-cols-4 gap-6 w-full"
+        class="flex flex-col"
         :list="menuData"
         v-bind="dragOptions"
-        group="menu"
+        :group="menuData.id"
         item-key="id"
         handle=".handle"
     >
-      <template #item="{ element }">
-        <LbCard :use-background="false" class="edit-menu__card bg-slate-200">
+      <template #item="{ element, index }">
+        <LbCard :use-background="false" :use-padding="false" class="edit-menu__card">
           <div class="flex flex-col">
-            <div class="edit-menu__card-header flex items-center">
+            <div class="edit-menu__card-header flex items-start">
               <IconHamburger width="20px" height="20px" class="handle mr-2" />
-              <b>{{element.name}}</b>
+              <b class="text-ellipsis">{{element.name}} - {{index}}</b>
             </div>
 
             <div class="edit-menu__card-list">
-              <PagesNavigationEditChildItem v-if="element.children" :item-data="element.children" :drag-options="dragOptions" />
+              <PagesNavigationEditChildItem
+                  v-if="element.children"
+                  :item-data="element.children"
+                  :drag-options="dragOptions"
+                  :level-data="1"
+              />
             </div>
           </div>
         </LbCard>
@@ -71,5 +77,16 @@ export default {
 <style lang="scss">
 .edit-menu {
   min-height: 40px;
+
+  &__card {
+    padding: 24px 15px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+  }
+
+  &__card-list {
+    min-height: 40px;
+  }
 }
 </style>
