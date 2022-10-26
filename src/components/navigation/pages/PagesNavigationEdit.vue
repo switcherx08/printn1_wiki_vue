@@ -1,92 +1,88 @@
 <script>
 import {mapState} from "pinia";
-import draggable from "vuedraggable";
 import {useSidebarStore} from "@/stores/sidebar";
-import LbCard from "@/components/base/card/Lb-Card.vue";
-import IconHamburger from "@/components/icons/IconHamburger.vue";
-import PagesNavigationEditChildItem from "@/components/navigation/pages/PagesNavigationEditChildItem.vue";
+import PagesNavigationEditItem from "@/components/navigation/pages/PagesNavigationEditItem.vue";
 
 export default {
   name: 'PagesNavigationEdit',
-  components: {PagesNavigationEditChildItem, draggable, IconHamburger, LbCard},
 
-  setup () {
+  components: {PagesNavigationEditItem},
+
+  setup() {
     const sidebarStore = useSidebarStore()
 
-    return {sidebarStore}
+    return {
+      sidebarStore
+    }
   },
 
   data() {
     return {
-      menuData: []
+      parentId: 0,
+      childrenMenu: {}
     }
   },
 
   computed: {
     ...mapState(useSidebarStore, {
       menu: 'panelMenu',
-      dragOptions: 'dragOptions'
+      panelMenuEditData: 'panelMenuEditData'
     }),
   },
 
   watch: {
-    menu: {
-      handler() {
-        this.menuData = this.sidebarStore.transformMenuItemToArray(this.menu)
-      },
-      deep: true
+    parentId() {
+      for(let i in this.menu) {
+        if(this.menu[i].id === this.parentId) {
+          this.childrenMenu = this.menu[i]
+        }
+      }
     }
+  },
+
+  mounted() {
+    setTimeout(() => {
+      this.parentId = 2
+    }, 600)
   }
 }
 </script>
 
 <template>
-  <div class="edit-menu flex flex-col">
-<!--    grid grid-cols-4 gap-6 w-full-->
-    <draggable
-        class="flex flex-col"
-        :list="menuData"
-        v-bind="dragOptions"
-        :group="menuData.id"
-        item-key="id"
-        handle=".handle"
-    >
-      <template #item="{ element, index }">
-        <LbCard :use-background="false" :use-padding="false" class="edit-menu__card">
-          <div class="flex flex-col">
-            <div class="edit-menu__card-header flex items-start">
-              <IconHamburger width="20px" height="20px" class="handle mr-2" />
-              <b class="text-ellipsis">{{element.name}} - {{index}}</b>
-            </div>
-
-            <div class="edit-menu__card-list">
-              <PagesNavigationEditChildItem
-                  v-if="element.children"
-                  :item-data="element.children"
-                  :drag-options="dragOptions"
-                  :level-data="1"
-              />
-            </div>
+  <div class="edit-menu flex">
+    <div class="edit-menu__parents w-80 shrink-0 pr-4 mr-6">
+      <b class="mb-2">Родительская страница</b>
+      <PagesNavigationEditItem
+          v-for="(page, pageIndex) in menu"
+          :key="pageIndex"
+          :item-data="page"
+          :level-data="1"
+          :parent-id="parentId"
+      />
+    </div>
+    <div class="edit-menu__content">
+      <div class="flex flex-col w-80 shrink-0 pr-4 mr-6">
+        <b class="mb-2">Позиция страницы</b>
+        <div class="flex flex-col">
+          <div v-for="(children, childrenIndex) in childrenMenu.children" :key="childrenIndex" class="mb-2">
+            <span class="px-0 py-4">{{children.name}}</span>
           </div>
-        </LbCard>
-      </template>
-    </draggable>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 .edit-menu {
-  min-height: 40px;
+  height: 90%;
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  &__card {
-    padding: 24px 15px;
-    margin-bottom: 24px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-  }
-
-  &__card-list {
-    min-height: 40px;
+  &__parents {
+    height: 100%;
+    border-right: 1px solid var(--border-color);
   }
 }
 </style>

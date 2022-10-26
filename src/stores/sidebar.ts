@@ -7,12 +7,10 @@ export const useSidebarStore = defineStore('sidebar',{
     state: () => ({
         _iconMenu: {},
         _panelMenu: {},
-        _panelMenuIsShow: true, // true
-        _panelMenuIsView: true, // true
-        _dragOptions: {
-            animation: 400
-        },
-
+        _panelMenuIsShow: true,
+        _panelMenuIsView: true,
+        _panelMenuIsEdit: false,
+        _panelMenuEditData: {}
     }),
     getters: {
         iconMenu: (state) => state._iconMenu,
@@ -20,18 +18,20 @@ export const useSidebarStore = defineStore('sidebar',{
         panelMenu: (state) => state._panelMenu,
         panelMenuIsShow: (state) => state._panelMenuIsShow,
         panelMenuIsView: (state) => state._panelMenuIsView,
-        dragOptions: (state) => state._dragOptions,
+        panelMenuIsEdit: (state) => state._panelMenuIsEdit,
+        panelMenuEditData: (state) => state._panelMenuEditData,
     },
     actions: {
         setPanelMenu(data: object) {
             this._panelMenu = data
         },
 
-        setDragPanelMenu(data: object) {
-            this._panelMenu = data.map((el, index) => {
-                el.sort = index + 1
-                return el;
-            })
+        setPanelMenuIsEdit(status: boolean) {
+            this._panelMenuIsEdit = status
+        },
+
+        setPanelMenuEditData(data: object) {
+            this._panelMenuEditData = data
         },
 
         // Fetch data
