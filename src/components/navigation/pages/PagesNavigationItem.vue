@@ -97,9 +97,9 @@ export default {
       </router-link>
 
       <div class="pages-nav-item__buttons">
-        <button type="button" class="pages-nav-item__button" @click="openEditMenu(itemData)">
-          <IconSettings width="16px" height="16px" />
-        </button>
+<!--        <button type="button" class="pages-nav-item__button" @click="openEditMenu(itemData)">-->
+<!--          <IconSettings width="16px" height="16px" />-->
+<!--        </button>-->
         <button type="button" class="pages-nav-item__button" @click="addPage(itemData)">
           <IconPlus />
         </button>
