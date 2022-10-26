@@ -50,7 +50,7 @@ export default {
 
 <template>
   <div class="edit-menu flex">
-    <div class="edit-menu__parents w-80 shrink-0 pr-4 mr-6">
+    <div class="edit-menu__parents w-80 shrink-0 pr-4 mr-4">
       <b class="mb-2">Родительская страница</b>
       <PagesNavigationEditItem
           v-for="(page, pageIndex) in menu"
@@ -61,11 +61,11 @@ export default {
       />
     </div>
     <div class="edit-menu__content">
-      <div class="flex flex-col w-80 shrink-0 pr-4 mr-6">
+      <div class="edit-menu__child w-80 shrink-0 px-4 mr-6">
         <b class="mb-2">Позиция страницы</b>
         <div class="flex flex-col">
-          <div v-for="(children, childrenIndex) in childrenMenu.children" :key="childrenIndex" class="mb-2">
-            <span class="px-0 py-4">{{children.name}}</span>
+          <div v-for="(children, childrenIndex) in childrenMenu.children" :key="childrenIndex" class="mb-2 py-2">
+            <span>{{children.name}}</span>
           </div>
         </div>
       </div>
@@ -80,7 +80,8 @@ export default {
   overflow-x: hidden;
   overflow-y: auto;
 
-  &__parents {
+  &__parents,
+  &__child {
     height: 100%;
     border-right: 1px solid var(--border-color);
   }
