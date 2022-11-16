@@ -9,11 +9,12 @@ import TextEditor from '@/components/base/input/TextEditor.vue'
 import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue';
 import IconEdit from '@/components/icons/IconEdit.vue'
 import AttachmentFilesMini from "@/components/files/attachment_files/AttachmentFilesMini.vue";
+import DialogFileManager from "@/components/files/file_manager/DialogFileManager.vue";
 
 export default {
   name: 'PageEdit',
 
-  components: {AttachmentFilesMini, IconEdit, PageSections, TextEditor, BaseSimpleButton},
+  components: {DialogFileManager, AttachmentFilesMini, IconEdit, PageSections, TextEditor, BaseSimpleButton},
 
   setup() {
     // Route
@@ -101,6 +102,10 @@ export default {
     endEditTitleMode() {
       this.editTitleMode = false
       this.wikiDataStore.setTitle(this.name)
+    },
+
+    openFileManager() {
+      this.$refs.FileManager.show()
     }
   }
 }
@@ -144,7 +149,11 @@ export default {
     </template>
     <template #body>
       <div class="flex">
-        <AttachmentFilesMini show-upload-button class="mb-4" />
+        <AttachmentFilesMini
+            show-upload-button
+            class="mb-4"
+            @open:fileManager="openFileManager()"
+        />
       </div>
 
       <TextEditor
@@ -154,6 +163,8 @@ export default {
       />
     </template>
   </PageSections>
+
+  <DialogFileManager ref="FileManager" />
 </template>
 
 <style lang="scss">

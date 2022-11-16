@@ -10,3 +10,4 @@ https://daisyui.com/docs/install/
 https://github.com/kyvg/vue3-notification
 https://ckeditor.com/ckeditor-5/download/
 https://github.com/SortableJS/vue.draggable.next
+https://github.com/n1crack/vuefinder (file manager)
