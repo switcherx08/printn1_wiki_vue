@@ -8,11 +8,12 @@ import PageSections from '@/components/sections/page_sections/PageSections.vue'
 import TextEditor from '@/components/base/input/TextEditor.vue'
 import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue';
 import IconEdit from '@/components/icons/IconEdit.vue'
+import AttachmentFilesMini from "@/components/files/attachment_files/AttachmentFilesMini.vue";
 
 export default {
   name: 'PageEdit',
 
-  components: {IconEdit, PageSections, TextEditor, BaseSimpleButton},
+  components: {AttachmentFilesMini, IconEdit, PageSections, TextEditor, BaseSimpleButton},
 
   setup() {
     // Route
@@ -142,6 +143,10 @@ export default {
       </h1>
     </template>
     <template #body>
+      <div class="flex">
+        <AttachmentFilesMini class="mb-4" />
+      </div>
+
       <TextEditor
           :model-value="wikiDataStore.content"
           :field-errors="errors.text"

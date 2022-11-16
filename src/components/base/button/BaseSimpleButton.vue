@@ -36,14 +36,7 @@ export default {
 </script>
 
 <template>
-  <button
-      class="btn"
-      :class="[
-          {'btn-outline': isOutline},
-          {'btn-primary': isPrimary},
-          initSize()
-      ]"
-  >
+  <button class="btn" :class="[{'btn-outline': isOutline}, {'btn-primary': isPrimary}, initSize()]">
     <span><slot /></span>
   </button>
 </template>

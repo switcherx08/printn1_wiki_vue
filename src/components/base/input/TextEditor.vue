@@ -36,22 +36,22 @@ export default {
     const apiKey = 'rpphwlv2t4540b2n4lhq7otnvatkghwr7x01n591hs9cdqff'
 
     // tinydrive
-    const plugins = 'print casechange advcode visualblocks image link codesample table hr pagebreak ' +
-        'nonbreaking anchor lists checklist textpattern noneditable formatpainter quickbars advtable export'
+    const plugins = 'print visualblocks image link codesample table hr pagebreak ' +
+        'nonbreaking anchor lists textpattern noneditable quickbars'
 
     const toolbar = [
       { name: 'format', items: [ 'formatselect'] },
-      { name: 'formatting', items: [ 'bold', 'italic', 'underline', 'strikethrough', 'casechange', 'subscript', 'superscript' ] },
-      { name: 'list', items: [ 'checklist', 'numlist', 'bullist' ] },
+      { name: 'formatting', items: [ 'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript' ] },
+      { name: 'list', items: [ 'numlist', 'bullist' ] },
       { name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright', 'alignjustify', 'alignnone' ] },
       { name: 'color', items: [ 'forecolor', 'backcolor' ] },
       { name: 'size', items: [ 'fontsizeselect' ] },
       { name: 'indentation', items: [ 'outdent', 'indent' ] },
-      { name: 'style', items: [ 'removeformat', 'formatpainter' ] },
+      { name: 'style', items: [ 'removeformat' ] },
       { name: 'formatting', items: [ 'blockquote', 'codesample', 'hr', 'pagebreak' ] },
       { name: 'table', items: [ 'table' ] },
       { name: 'file', items: [ 'image', 'insertfile', 'link' ] },
-      { name: 'other', items: [ 'anchor', 'visualblocks', 'print', 'inlinecode', 'selectall', 'export', 'code' ] },
+      { name: 'other', items: [ 'anchor', 'visualblocks', 'print', 'inlinecode', 'selectall', 'code' ] },
     ]
 
     const contextmenu = 'link image table checklist hr pagebreak visualblocks selectall'
