@@ -144,7 +144,7 @@ export default {
     </template>
     <template #body>
       <div class="flex">
-        <AttachmentFilesMini class="mb-4" />
+        <AttachmentFilesMini show-upload-button class="mb-4" />
       </div>
 
       <TextEditor

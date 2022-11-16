@@ -38,5 +38,13 @@ export default {
 .attachment-files-item {
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  &__name {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 </style>

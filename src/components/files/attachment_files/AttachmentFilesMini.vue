@@ -8,6 +8,13 @@ export default {
 
   components: {Popper, IconDownload, AttachmentFilesItem},
 
+  props: {
+    ShowUploadButton: {
+      type: Boolean,
+      default: true
+    }
+  },
+
   data() {
     return {
       files: [
@@ -39,6 +46,7 @@ export default {
   <div class="attachment-files-mini">
     <div class="attachment-files-mini__body">
       <button
+          v-if="ShowUploadButton"
           type="button"
           class="attachment-files-mini__upload-button attachment-files-mini__button"
           @click="uploadFile()"
