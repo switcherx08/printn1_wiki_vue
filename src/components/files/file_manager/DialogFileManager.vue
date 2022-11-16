@@ -28,13 +28,17 @@ export default {
       </template>
 
       <template #body>
-        <vue-finder
-            id='my_vuefinder'
-            locale="ru"
-            :dark="false"
-            url="http://vuefinder-php.test"
-        ></vue-finder>
+        <div class="file-manager">
+          <vue-finder
+              id='my_vuefinder'
+              locale="ru"
+              :dark="false"
+              url="http://vuefinder-php.test"
+          ></vue-finder>
+        </div>
       </template>
     </ModalDialog>
   </teleport>
 </template>
+
+<style lang="scss" src="./file_manager.scss"></style>

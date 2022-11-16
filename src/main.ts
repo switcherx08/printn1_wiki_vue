@@ -9,7 +9,6 @@ import router from './router'
 import Notifications from '@kyvg/vue3-notification'
 // @ts-ignore
 import VueFinder from 'vuefinder'
-import 'vuefinder/dist/style.css'
 
 // Components
 import AuthLayout from '@/layouts/auth_layout/AuthLayout.vue'
