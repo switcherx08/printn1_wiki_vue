@@ -17,7 +17,12 @@ export default {
     isMiniature: {
       type: Boolean,
       default: true
-    }
+    },
+
+    showRemoveButton: {
+      type: Boolean,
+      default: true
+    },
   },
 
   emits: ['removeFile', 'openFile']
@@ -28,7 +33,7 @@ export default {
   <button type="button" class="attachment-files-item">
     <Popper :content="itemData.name" hover>
       <div class="flex flex-col">
-        <div class="attachment-files-item__remove" @click="$emit('removeFile')">
+        <div v-if="showRemoveButton" class="attachment-files-item__remove" @click="$emit('removeFile')">
           <IconClose />
         </div>
         <a :href="itemData.link" :download="itemData.name" target="_blank" class="attachment-files-item__file flex flex-col">

@@ -17,6 +17,11 @@ export default {
       default: true
     },
 
+    showRemoveButton: {
+      type: Boolean,
+      default: true
+    },
+
     // eslint-disable-next-line vue/require-default-prop
     dataFiles: {
       type: Object,
@@ -77,35 +82,37 @@ export default {
 <template>
   <div class="attachment-files-mini">
     <div class="attachment-files-mini__body">
-      <template v-if="showUploadButton">
-        <input
-            id="uploadFiles"
-            ref="uploadFiles"
-            multiple
-            class="attachment-files-mini__upload-input"
-            type="file"
-            @change="uploadFile()"
-        />
-
-        <button
-            type="button"
-            class="attachment-files-mini__upload-button attachment-files-mini__button"
-            @click="chooseFiles()"
-        >
-          <Popper content="Загрузить файл" hover>
-            <IconDownload width="24px" height="24px" />
-          </Popper>
-        </button>
-      </template>
+      <button
+          v-if="showUploadButton"
+          type="button"
+          class="attachment-files-mini__upload-button attachment-files-mini__button"
+          @click="chooseFiles()"
+      >
+        <Popper content="Загрузить файл" hover>
+          <IconDownload width="24px" height="24px" />
+        </Popper>
+      </button>
 
       <AttachmentFilesItem
           v-for="(file, fileIndex) in dataFiles" :key="fileIndex"
           :item-data="file"
           is-miniature
-          class="attachment-files-mini__button ml-2"
+          :show-remove-button="showRemoveButton"
+          class="attachment-files-mini__button"
           @removeFile="removeFile(file)"
       />
     </div>
+
+    <input
+        v-if="showUploadButton"
+        id="uploadFiles"
+        ref="uploadFiles"
+        multiple
+        class="attachment-files-mini__upload-input"
+        type="file"
+        @change="uploadFile()"
+    />
+
   </div>
 </template>
 
@@ -141,7 +148,7 @@ export default {
   }
 
   &__button:not(:first-child) {
-    margin-left: .5rem;
+    margin-left: .3rem;
   }
 
   &__upload-button {

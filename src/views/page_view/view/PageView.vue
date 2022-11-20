@@ -7,6 +7,7 @@ import PageSections from '@/components/sections/page_sections/PageSections.vue'
 import IconEdit from '@/components/icons/IconEdit.vue'
 import PageAuthors from '@/components/authors/page_authors/PageAuthors.vue'
 import PageContent from '@/components/content/page_content/PageContent.vue'
+import AttachmentFilesMini from "@/components/files/attachment_files/AttachmentFilesMini.vue";
 
 export default {
   name: 'PageView',
@@ -15,6 +16,7 @@ export default {
     PageAuthors,
     IconEdit,
     PageSections,
+    AttachmentFilesMini
   },
 
   setup() {
@@ -36,7 +38,8 @@ export default {
       title: 'title',
       content: 'content',
       alias: 'alias',
-      author: 'author'
+      author: 'author',
+      files: 'files'
     }),
   },
 
@@ -68,6 +71,7 @@ export default {
     fetchData() {
       if(this.$route.params && this.$route.params.id) {
         this.wikiDataStore.fetchWikiData(this.$route.params.id)
+        this.wikiDataStore.fetchWikiFiles(this.$route.params.id)
       }
     },
   },
@@ -94,6 +98,12 @@ export default {
       <template #header>
         <div class="h1 w-full mb-2">{{title}}</div>
         <PageAuthors :item-data="author" />
+        <AttachmentFilesMini
+            :show-upload-button="false"
+            :show-remove-button="false"
+            class="mt-4"
+            :data-files="files"
+        />
       </template>
       <template #body>
         <PageContent :item-data="content" />

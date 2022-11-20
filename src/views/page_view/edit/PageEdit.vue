@@ -155,7 +155,6 @@ export default {
     </template>
     <template #body>
       <div class="flex">
-
         <AttachmentFilesMini
             show-upload-button
             class="mb-4"
