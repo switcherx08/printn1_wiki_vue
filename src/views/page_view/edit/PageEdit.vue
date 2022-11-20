@@ -112,7 +112,7 @@ export default {
     async saveFiles(files) {
       await this.wikiDataStore.fetchWikiSaveFiles(this.route.params.id, files)
       await this.getFiles()
-    }
+    },
   }
 }
 </script>
@@ -161,6 +161,7 @@ export default {
             class="mb-4"
             :data-files="files"
             @saveFiles="saveFiles($event)"
+            @removeFiles="getFiles"
         />
       </div>
 

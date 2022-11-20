@@ -25,7 +25,7 @@ export default {
   },
 
   emits: [
-    'fetchFiles', 'saveFiles'
+    'fetchFiles', 'saveFiles', 'removeFiles'
   ],
 
   data() {
@@ -59,9 +59,17 @@ export default {
       })
     },
 
-    openFile(file) {
-      alert('Открыть файл ' + '"' + file.name + '"')
-    },
+    async removeFile(file) {
+      const authStore = useAuthStore()
+      const token = authStore.getToken()
+
+      await axios.delete(`/api/wiki/file/${file.id}`, {
+        'X-XSRF-TOKEN': token
+      }).then((response) => {
+        console.log(response.data)
+        this.$emit('removeFiles', file)
+      })
+    }
   }
 }
 </script>
@@ -95,7 +103,7 @@ export default {
           :item-data="file"
           is-miniature
           class="attachment-files-mini__button ml-2"
-          @click="openFile(file)"
+          @removeFile="removeFile(file)"
       />
     </div>
   </div>
