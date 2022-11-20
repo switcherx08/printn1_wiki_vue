@@ -2,6 +2,9 @@
 import Popper from "vue3-popper";
 import AttachmentFilesItem from "./AttachmentFilesItem.vue";
 import IconDownload from "@/components/icons/IconDownload.vue";
+import {useAuthStore} from "@/stores/auth";
+import _ from 'lodash'
+import axios from 'axios'
 
 export default {
   name: 'AttachmentFilesMini',
@@ -12,36 +15,53 @@ export default {
     showUploadButton: {
       type: Boolean,
       default: true
+    },
+
+    // eslint-disable-next-line vue/require-default-prop
+    dataFiles: {
+      type: Object,
+      required: false
     }
   },
 
   emits: [
-    'open:fileManager'
+    'fetchFiles', 'saveFiles'
   ],
 
   data() {
     return {
-      files: [
-        { format: 'word', name: 'Название прикрепленного файла' },
-        { format: 'excel', name: 'Название #2 прикрепленного файла' },
-        { format: 'pdf', name: 'Название #3 прикрепленного файла' },
-        { format: 'image', name: 'Название #4 прикрепленного файла' },
-        { format: 'audio', name: 'Название #5 прикрепленного файла' },
-        { format: 'zip', name: 'Название #6 прикрепленного файла' },
-        { format: 'txt', name: 'Название #7 прикрепленного файла' },
-        { format: 'file', name: 'Название #8 прикрепленного файла' }
-      ]
+      uploadFiles: []
     }
   },
 
   methods: {
-    uploadFile() {
-      this.$emit('open:fileManager')
+    chooseFiles: function() {
+      document.getElementById("uploadFiles").click()
+    },
+
+    async uploadFile() {
+      const files = this.$refs.uploadFiles.files
+      let saveFiles = [];
+
+      const authStore = useAuthStore()
+      const token = authStore.getToken()
+      let formData = new FormData();
+
+      _.forEach(files, file => {
+        formData.append('files', file)
+        saveFiles.push(file.name)
+      })
+
+      await axios.post('/api/upload/file', formData, {
+        'X-XSRF-TOKEN': token
+      }).then((response) => {
+        this.$emit('saveFiles', saveFiles)
+      })
     },
 
     openFile(file) {
       alert('Открыть файл ' + '"' + file.name + '"')
-    }
+    },
   }
 }
 </script>
@@ -49,19 +69,29 @@ export default {
 <template>
   <div class="attachment-files-mini">
     <div class="attachment-files-mini__body">
-      <button
-          v-if="showUploadButton"
-          type="button"
-          class="attachment-files-mini__upload-button attachment-files-mini__button"
-          @click="uploadFile()"
-      >
-        <Popper content="Загрузить файл" hover>
-          <IconDownload width="24px" height="24px" />
-        </Popper>
-      </button>
+      <template v-if="showUploadButton">
+        <input
+            id="uploadFiles"
+            ref="uploadFiles"
+            multiple
+            class="attachment-files-mini__upload-input"
+            type="file"
+            @change="uploadFile()"
+        />
+
+        <button
+            type="button"
+            class="attachment-files-mini__upload-button attachment-files-mini__button"
+            @click="chooseFiles()"
+        >
+          <Popper content="Загрузить файл" hover>
+            <IconDownload width="24px" height="24px" />
+          </Popper>
+        </button>
+      </template>
 
       <AttachmentFilesItem
-          v-for="(file, fileIndex) in files" :key="fileIndex"
+          v-for="(file, fileIndex) in dataFiles" :key="fileIndex"
           :item-data="file"
           is-miniature
           class="attachment-files-mini__button ml-2"
@@ -109,6 +139,10 @@ export default {
   &__upload-button {
     color: var(--primary);
     border-color: var(--primary);
+  }
+
+  &__upload-input {
+    display: none;
   }
 }
 </style>

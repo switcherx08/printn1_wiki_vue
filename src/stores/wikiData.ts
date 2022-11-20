@@ -9,6 +9,7 @@ export const useWikiDataStore = defineStore({
             title: '',
             content: '',
             alias: '',
+            files: {},
             author: {}
         },
         _response: {}
@@ -19,6 +20,7 @@ export const useWikiDataStore = defineStore({
         content: (state) => state._data.content,
         alias: (state) => state._data.alias,
         author: (state) => state._data.author,
+        files: (state) => state._data.files,
         data: (state) => state._data,
         response: (state) => state._response,
     },
@@ -37,6 +39,10 @@ export const useWikiDataStore = defineStore({
 
         setAuthor(data: object) {
             this._data.author = data
+        },
+
+        setFiles(data: object) {
+            this._data.files = data
         },
 
         setResponse(data: object) {
@@ -98,6 +104,47 @@ export const useWikiDataStore = defineStore({
                 })
                 .catch(error => {
                     // this.clearData()
+                })
+        },
+
+        async fetchWikiFiles(id: string) {
+            const authStore = useAuthStore()
+
+            await fetch(`/api/files/${id}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': authStore.getToken()
+                }
+            })
+                .then(async response => {
+                    const data = await response.json()
+
+                    await this.setFiles(data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
+        async fetchWikiSaveFiles(id: string, files: object) {
+            const authStore = useAuthStore()
+            const data = { id: id, files: files }
+
+            await fetch(`/api/wiki/save-file`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': authStore.getToken()
+                },
+                body: JSON.stringify(data)
+            })
+                .then(async response => {
+                    const data = await response.json()
+                })
+                .catch(error => {
+                    console.log(error)
                 })
         },
     }

@@ -9,12 +9,11 @@ import TextEditor from '@/components/base/input/TextEditor.vue'
 import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue';
 import IconEdit from '@/components/icons/IconEdit.vue'
 import AttachmentFilesMini from "@/components/files/attachment_files/AttachmentFilesMini.vue";
-import DialogFileManager from "@/components/files/file_manager/DialogFileManager.vue";
 
 export default {
   name: 'PageEdit',
 
-  components: {DialogFileManager, AttachmentFilesMini, IconEdit, PageSections, TextEditor, BaseSimpleButton},
+  components: {AttachmentFilesMini, IconEdit, PageSections, TextEditor, BaseSimpleButton},
 
   setup() {
     // Route
@@ -25,6 +24,7 @@ export default {
 
     sidebarStore.hidePanelMenuIsShow()
     wikiDataStore.fetchWikiData(route.params.id)
+    wikiDataStore.fetchWikiFiles(route.params.id)
 
     return {route, wikiDataStore, projectStore, sidebarStore}
   },
@@ -33,6 +33,7 @@ export default {
     ...mapState(useWikiDataStore, {
       id: 'id',
       title: 'title',
+      files: 'files',
       response: 'response',
     }),
   },
@@ -104,8 +105,13 @@ export default {
       this.wikiDataStore.setTitle(this.name)
     },
 
-    openFileManager() {
-      this.$refs.FileManager.show()
+    getFiles() {
+      this.wikiDataStore.fetchWikiFiles(this.route.params.id)
+    },
+
+    async saveFiles(files) {
+      await this.wikiDataStore.fetchWikiSaveFiles(this.route.params.id, files)
+      await this.getFiles()
     }
   }
 }
@@ -149,10 +155,12 @@ export default {
     </template>
     <template #body>
       <div class="flex">
+
         <AttachmentFilesMini
             show-upload-button
             class="mb-4"
-            @open:fileManager="openFileManager()"
+            :data-files="files"
+            @saveFiles="saveFiles($event)"
         />
       </div>
 
@@ -163,8 +171,6 @@ export default {
       />
     </template>
   </PageSections>
-
-  <DialogFileManager ref="FileManager" />
 </template>
 
 <style lang="scss">
