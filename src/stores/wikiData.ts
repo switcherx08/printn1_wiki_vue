@@ -10,9 +10,11 @@ export const useWikiDataStore = defineStore({
             content: '',
             alias: '',
             files: {},
-            author: {}
+            author: {},
+            is_archive: false
         },
-        _response: {}
+        _response: {},
+        _responseArchive: {}
     }),
     getters: {
         id: (state) => state._data.id,
@@ -21,8 +23,10 @@ export const useWikiDataStore = defineStore({
         alias: (state) => state._data.alias,
         author: (state) => state._data.author,
         files: (state) => state._data.files,
+        is_archive: (state) => state._data.is_archive,
         data: (state) => state._data,
         response: (state) => state._response,
+        response_archive: (state) => state._responseArchive,
     },
     actions: {
         setId(data: string) {
@@ -45,8 +49,16 @@ export const useWikiDataStore = defineStore({
             this._data.files = data
         },
 
+        setIsArchive(status: boolean) {
+            this._data.is_archive = status
+        },
+
         setResponse(data: object) {
             this._response = data
+        },
+
+        setResponseArchive(data: object) {
+            this._responseArchive = data
         },
 
         clearData() {
@@ -55,6 +67,10 @@ export const useWikiDataStore = defineStore({
 
         clearResponse() {
             this._response = {}
+        },
+
+        clearResponseArchive() {
+            this._responseArchive = {}
         },
 
         async fetchWikiData(id: string) {
@@ -147,5 +163,28 @@ export const useWikiDataStore = defineStore({
                     console.log(error)
                 })
         },
+
+        async moveToArchive(id: string) {
+            const authStore = useAuthStore()
+            const data = { id: id }
+
+            await fetch(`/api/wiki`, {
+                method: 'delete',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': authStore.getToken()
+                },
+                body: JSON.stringify(data)
+            })
+                .then(async response => {
+                    const data = await response.json()
+                    this.setIsArchive(true)
+                    this.setResponseArchive(data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
     }
 })
