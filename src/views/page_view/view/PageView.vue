@@ -52,6 +52,9 @@ export default {
       files: 'files',
       is_archive: 'is_archive'
     }),
+    isShowAttachmentFiles() {
+      return !!(this.content && this.files.length !== 0);
+    }
   },
 
   watch: {
@@ -134,7 +137,7 @@ export default {
         <div class="h1 w-full mb-2">{{title}}</div>
         <PageAuthors :item-data="author" />
         <AttachmentFilesMini
-            v-if="content"
+            v-if="isShowAttachmentFiles"
             :show-upload-button="false"
             :show-remove-button="false"
             class="mt-4"
