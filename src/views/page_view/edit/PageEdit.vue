@@ -6,9 +6,9 @@ import {useProjectStore} from '@/stores/project'
 import {useSidebarStore} from '@/stores/sidebar'
 import PageSections from '@/components/sections/page_sections/PageSections.vue'
 import TextEditor from '@/components/base/input/TextEditor.vue'
-import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue';
+import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue'
 import IconEdit from '@/components/icons/IconEdit.vue'
-import AttachmentFilesMini from "@/components/files/attachment_files/AttachmentFilesMini.vue";
+import AttachmentFilesMini from "@/components/files/attachment_files/AttachmentFilesMini.vue"
 
 export default {
   name: 'PageEdit',
@@ -102,7 +102,11 @@ export default {
 
     endEditTitleMode() {
       this.editTitleMode = false
-      this.wikiDataStore.setTitle(this.name)
+      if(this.name) {
+        this.wikiDataStore.setTitle(this.name)
+      } else {
+        this.notEmptyPageName()
+      }
     },
 
     getFiles() {
@@ -113,6 +117,16 @@ export default {
       await this.wikiDataStore.fetchWikiSaveFiles(this.route.params.id, files)
       await this.getFiles()
     },
+
+    notEmptyPageName() {
+      this.name = this.title
+
+      this.$notify({
+        title: 'Заголовок не может быть пустым!',
+        type: 'warning',
+        duration: 5000
+      });
+    }
   }
 }
 </script>
