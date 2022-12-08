@@ -28,12 +28,12 @@ export default {
       <div class="card-body">
         <h2 class="card-title">{{item.name}}</h2>
         <p>{{item.text}}</p>
-        <div class="card-actions justify-start mt-2">
-          <router-link
-              :to="{name: 'projects-view', params: { alias: item.id }}"
-              class="btn btn-sm"
-          >Подробнее</router-link>
-        </div>
+<!--        <div class="card-actions justify-start mt-2">-->
+<!--          <router-link-->
+<!--              :to="{name: 'projects-view', params: { alias: item.id }}"-->
+<!--              class="btn btn-sm"-->
+<!--          >Подробнее</router-link>-->
+<!--        </div>-->
       </div>
     </div>
   </div>
