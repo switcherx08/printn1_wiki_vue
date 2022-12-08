@@ -3,11 +3,13 @@ import IconPlus from "@/components/icons/IconPlus.vue";
 import IconArrowBottom from "@/components/icons/IconArrowBottom.vue";
 import IconSettings from "@/components/icons/IconSettings.vue";
 import {useSidebarStore} from "@/stores/sidebar";
+import {useWikiDataStore} from '@/stores/wikiData'
 
 export default {
   name: 'PagesNavigationItem',
 
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     IconSettings, IconArrowBottom, IconPlus
   },
 
@@ -24,8 +26,11 @@ export default {
 
   setup() {
     const sidebarStore = useSidebarStore()
+    const wikiDataStore = useWikiDataStore()
 
-    return {sidebarStore}
+    return {
+      sidebarStore, wikiDataStore
+    }
   },
 
   data() {
@@ -52,10 +57,12 @@ export default {
 
     addPage(page) {
       if(page.isMain) {
-        this.$router.push({name: 'page-create'})
+        this.wikiDataStore.setCreateId('')
       } else {
-        this.$router.push({name: 'page-create', query: {parentId: page.id}})
+        this.wikiDataStore.setCreateId(page.id)
       }
+
+      this.wikiDataStore.setOpenCreteWindow(true)
     },
 
     openEditMenu(data) {

@@ -23,6 +23,7 @@ export default {
         'large': 'btn-lg',
         'middle': 'btn-sm',
         'small': 'btn-xs',
+        'default': 'btn-md',
       }
     }
   },

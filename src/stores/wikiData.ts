@@ -14,7 +14,9 @@ export const useWikiDataStore = defineStore({
             is_archive: false
         },
         _response: {},
-        _responseArchive: {}
+        _responseArchive: {},
+        _openCreteWindow: false,
+        _create_id: ''
     }),
     getters: {
         id: (state) => state._data.id,
@@ -27,6 +29,8 @@ export const useWikiDataStore = defineStore({
         data: (state) => state._data,
         response: (state) => state._response,
         response_archive: (state) => state._responseArchive,
+        create_id: (state) => state._create_id,
+        openCreteWindow: (state) => state._openCreteWindow,
     },
     actions: {
         setId(data: string) {
@@ -59,6 +63,14 @@ export const useWikiDataStore = defineStore({
 
         setResponseArchive(data: object) {
             this._responseArchive = data
+        },
+
+        setCreateId(id: string) {
+            this._create_id = id
+        },
+
+        setOpenCreteWindow(status: boolean) {
+            this._openCreteWindow = status
         },
 
         clearData() {
@@ -139,7 +151,6 @@ export const useWikiDataStore = defineStore({
                     await this.setFiles(data)
                 })
                 .catch(error => {
-                    console.log(error)
                 })
         },
 
@@ -160,7 +171,6 @@ export const useWikiDataStore = defineStore({
                     const data = await response.json()
                 })
                 .catch(error => {
-                    console.log(error)
                 })
         },
 
@@ -183,7 +193,6 @@ export const useWikiDataStore = defineStore({
                     this.setResponseArchive(data)
                 })
                 .catch(error => {
-                    console.log(error)
                 })
         }
     }

@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useLoaderStore } from '@/stores/loader'
 import VNotify from "@/components/notification/V-Notify.vue";
 import VProgressLoader from "@/components/loader/V-ProgressLoader.vue";
+import PageCreateWindow from "@/components/content/page_create_window/PageCreateWindow.vue";
 
 const loaderStore = useLoaderStore()
 const authStore = useAuthStore()
@@ -27,4 +28,6 @@ authStore.fetchToken()
         class="flex justify-center items-center fixed inset-0 z-50"
     />
   </transition>
+
+  <PageCreateWindow />
 </template>

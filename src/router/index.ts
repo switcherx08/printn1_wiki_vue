@@ -20,6 +20,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'dashboard',
+      redirect: '/page/1',
       meta: {
         middleware: [auth, wiki],
         layout: layouts.sidebar,
@@ -114,16 +115,28 @@ const router = createRouter({
           },
           component: () => import('@/views/page_view/edit/PageEdit.vue'),
         },
+      ]
+    },
+    {
+      path: '/settings',
+      meta: {
+        middleware: [auth, wiki],
+        layout: layouts.sidebar,
+        module: modules[0].dashboard,
+        page: {title: 'projects'}
+      },
+      component: () => import('@/views/settings_view/SettingsIndex.vue'),
+      children: [
         {
-          path: '/page/create',
-          name: 'page-create',
+          path: '/users',
+          name: 'users-list',
           meta: {
             middleware: [auth, wiki],
             layout: layouts.sidebar,
             module: modules[0].dashboard,
-            page: {title: 'projects-create'}
+            page: {title: 'users-list'}
           },
-          component: () => import('@/views/page_view/create/PageCreate.vue'),
+          component: () => import('@/views/settings_view/users/list/SettingsUsersList.vue'),
         }
       ]
     },

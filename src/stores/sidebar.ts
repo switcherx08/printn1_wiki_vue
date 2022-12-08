@@ -58,7 +58,6 @@ export const useSidebarStore = defineStore('sidebar',{
                     }
                 })
                 .catch(error => {
-                    // console.log(error)
                     this.setPanelMenu({})
                 })
         },

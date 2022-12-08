@@ -4,6 +4,6 @@ import IconSettings from "@/components/icons/IconSettings.vue";
 
 <template>
   <ul class="sidebar-icon-menu mt-auto">
-    <li><router-link :to="{ name: 'dashboard' }"><IconSettings /></router-link></li>
+    <li><router-link :to="{ name: 'users-list' }"><IconSettings /></router-link></li>
   </ul>
 </template>

@@ -71,7 +71,6 @@ export default {
       await axios.delete(`/api/wiki/file/${file.id}`, {
         'X-XSRF-TOKEN': token
       }).then((response) => {
-        console.log(response.data)
         this.$emit('removeFiles', file)
       })
     }

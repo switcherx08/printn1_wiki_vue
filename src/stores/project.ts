@@ -47,7 +47,6 @@ export const useProjectStore = defineStore({
                     }
                 })
                 .catch(error => {
-                    // console.log(error)
                     this.setList({})
                 })
         },
