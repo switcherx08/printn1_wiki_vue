@@ -5,12 +5,14 @@ import {useLoaderStore} from "@/stores/loader";
 import PagesNavigationItem from "./PagesNavigationItem.vue";
 import PagesNavigationMain from "./PagesNavigationMain.vue";
 import PagesNavigationEdit from "@/components/navigation/pages/PagesNavigationEdit.vue";
+import MenuDraggable from "@/components/navigation/pages/MenuDraggable.vue";
 
 export default {
   name: 'PagesNavigation',
 
   components: {
-    PagesNavigationMain, PagesNavigationItem, PagesNavigationEdit
+    MenuDraggable,
+    PagesNavigationMain, PagesNavigationItem, PagesNavigationEdit,
   },
 
   setup() {
@@ -40,13 +42,7 @@ export default {
 <template>
   <div class="pages-nav">
     <PagesNavigationMain :item-data="mainPageItem"/>
-
-    <PagesNavigationItem
-        v-for="(page, pageIndex) in menu"
-        :key="pageIndex"
-        :item-data="page"
-        :level-data="1"
-    />
+    <MenuDraggable :list="menu" :level-data="1" />
   </div>
 </template>
 

@@ -16,6 +16,9 @@ import SidebarLayout from '@/layouts/sidebar_layout/SidebarLayout.vue'
 import ErrorLayout from '@/layouts/error_layout/ErrorLayout.vue'
 import BaseSimpleButton from '@/components/base/button/BaseSimpleButton.vue'
 import AvatarUser from "@/components/base/avatar/AvatarUser.vue";
+import PagesNavigationItem from "@/components/navigation/pages/PagesNavigationItem.vue"
+import draggable from "vuedraggable";
+
 
 // App
 const app = createApp(App)
@@ -29,6 +32,8 @@ app.component('BaseSimpleButton', BaseSimpleButton)
 app.component('AuthLayout', AuthLayout)
 app.component('SidebarLayout', SidebarLayout)
 app.component('ErrorLayout', ErrorLayout)
+app.component('PagesNavigationItem', PagesNavigationItem)
+app.component('draggable', draggable)
 
 // Components
 app.component('AvatarUser', AvatarUser)

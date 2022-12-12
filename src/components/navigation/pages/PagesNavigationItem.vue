@@ -2,6 +2,7 @@
 import IconPlus from "@/components/icons/IconPlus.vue";
 import IconArrowBottom from "@/components/icons/IconArrowBottom.vue";
 import IconSettings from "@/components/icons/IconSettings.vue";
+import MenuDraggable from "@/components/navigation/pages/MenuDraggable.vue";
 import {useSidebarStore} from "@/stores/sidebar";
 import {useWikiDataStore} from '@/stores/wikiData'
 
@@ -9,13 +10,14 @@ export default {
   name: 'PagesNavigationItem',
 
   components: {
+    MenuDraggable,
     // eslint-disable-next-line vue/no-unused-components
-    IconSettings, IconArrowBottom, IconPlus
+    IconSettings, IconArrowBottom, IconPlus,
   },
 
   props: {
     itemData: {
-      type: [Object, Array],
+      type: Object,
       required: true
     },
     levelData: {
@@ -42,7 +44,7 @@ export default {
   computed: {
     levelMenu() {
       return this.levelData + 1
-    }
+    },
   },
 
   methods: {
@@ -105,25 +107,17 @@ export default {
       </router-link>
 
       <div class="pages-nav-item__buttons">
-<!--        <button type="button" class="pages-nav-item__button" @click="openEditMenu(itemData)">-->
-<!--          <IconSettings width="16px" height="16px" />-->
-<!--        </button>-->
         <button type="button" class="pages-nav-item__button" @click="addPage(itemData)">
           <IconPlus />
         </button>
       </div>
     </div>
+
     <div
-        v-if="itemData.children"
         class="pages-nav-item__child"
         :class="{'is_open': isOpen}"
     >
-        <PagesNavigationItem
-            v-for="(child, childIndex) in itemData.children"
-            :key="childIndex"
-            :item-data="child"
-            :level-data="levelMenu"
-        />
+      <MenuDraggable v-if="itemData.children" :list="itemData.children" :level-data="levelMenu" />
     </div>
   </div>
 </template>
