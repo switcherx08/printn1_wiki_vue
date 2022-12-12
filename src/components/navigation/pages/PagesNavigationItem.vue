@@ -112,7 +112,6 @@ export default {
         </button>
       </div>
     </div>
-
     <div
         v-if="itemData.children"
         class="pages-nav-item__child"

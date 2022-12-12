@@ -1,12 +1,11 @@
 <script>
+import {useWikiDataStore} from '@/stores/wikiData'
 import IconPlus from "@/components/icons/IconPlus.vue";
-import IconSettings from "@/components/icons/IconSettings.vue";
 import IconPage from "@/components/icons/IconPage.vue";
-
 export default {
   name: 'PageNavigationMain',
 
-  components: {IconPlus, IconSettings, IconPage},
+  components: {IconPlus, IconPage},
 
   props: {
     itemData: {
@@ -15,9 +14,18 @@ export default {
     }
   },
 
+  setup() {
+    const wikiDataStore = useWikiDataStore()
+
+    return {
+      wikiDataStore
+    }
+  },
+
   methods: {
     addPage() {
-      this.$router.push({name: 'page-create'})
+      this.wikiDataStore.setCreateId('')
+      this.wikiDataStore.setOpenCreteWindow(true)
     }
   }
 }
