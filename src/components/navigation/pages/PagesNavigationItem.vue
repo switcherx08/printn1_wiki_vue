@@ -44,6 +44,7 @@ export default {
       return this.levelData + 1
     }
   },
+
   methods: {
     toggleChild() {
       this.isOpen = !this.isOpen;
