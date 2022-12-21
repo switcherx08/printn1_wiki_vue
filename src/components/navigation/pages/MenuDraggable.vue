@@ -17,28 +17,33 @@ export default {
   },
 
   setup() {
-    const dragging = ref(false)
-    const drag_aimation = 400
+    const drag = ref(false)
     const changedMenu = ref([])
-    const menu = ref([])
+    let menu = ref([])
 
     return {
-      dragging,
-      drag_aimation,
+      drag,
       menu,
       changedMenu
     }
   },
 
-  emits: [
-    'update:added',
-    'update:moved'
-  ],
-
   computed: {
     levelMenu() {
       return this.levelData + 1
     },
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost"
+      };
+    }
+  },
+
+  created() {
+    this.transformList(this.list)
   },
 
   watch: {
@@ -50,14 +55,8 @@ export default {
     },
   },
 
-  mounted() {
-    this.transformList(this.list)
-  },
-
   methods: {
     transformList(val) {
-      this.menu = []
-
       for(let i in val) {
         this.menu.push(val[i])
       }
@@ -76,11 +75,11 @@ export default {
 
     draggableEventManager(data) {
       if(data.moved) {
-        this.$emit('update:moved', data)
+        console.log(data.moved)
       }
 
       if(data.added) {
-        this.$emit('update:added', data.added)
+        console.log(data.added)
       }
     }
   }
@@ -90,17 +89,20 @@ export default {
 <template>
   <draggable
       class="menu-drag-area"
-      tag="div"
+      :component-data="{
+          tag: 'div',
+          type: 'transition-group',
+          name: !drag ? 'flip-list' : null
+        }"
       v-model="menu"
+      v-bind="dragOptions"
       :group="{ name: 'g1' }"
+      @start="drag = true"
+      @end="drag = false"
       item-key="wiki"
-      :animation="drag_aimation"
-      @start="dragging = true"
-      @end="dragging = false"
-      @change="draggableUpdate"
   >
     <template #item="{ element }">
-      <PagesNavigationItem :item-data="element" :level-data="levelData" :is-dragging="dragging" />
+      <PagesNavigationItem :item-data="element" :level-data="levelData" />
     </template>
   </draggable>
 </template>

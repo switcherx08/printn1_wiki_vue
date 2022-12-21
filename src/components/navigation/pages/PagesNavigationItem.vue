@@ -24,12 +24,7 @@ export default {
     levelData: {
       type: Number,
       required: true
-    },
-
-    isDragging: {
-      type: Boolean,
-      required: true
-    },
+    }
   },
 
   setup() {
@@ -83,7 +78,7 @@ export default {
 </script>
 
 <template>
-  <div class="pages-nav-item flex flex-col" :class="{'dragging': isDragging}">
+  <div class="pages-nav-item flex flex-col">
     <div class="pages-nav-item__box flex">
       <div
           v-if="itemData.children"
