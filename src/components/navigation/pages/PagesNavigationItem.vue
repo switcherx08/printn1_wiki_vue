@@ -20,10 +20,16 @@ export default {
       type: Object,
       required: true
     },
+
     levelData: {
       type: Number,
       required: true
-    }
+    },
+
+    isDragging: {
+      type: Boolean,
+      required: true
+    },
   },
 
   setup() {
@@ -77,7 +83,7 @@ export default {
 </script>
 
 <template>
-  <div class="pages-nav-item flex flex-col">
+  <div class="pages-nav-item flex flex-col" :class="{'dragging': isDragging}">
     <div class="pages-nav-item__box flex">
       <div
           v-if="itemData.children"
@@ -117,7 +123,7 @@ export default {
         class="pages-nav-item__child"
         :class="{'is_open': isOpen}"
     >
-      <MenuDraggable v-if="itemData.children" :list="itemData.children" :level-data="levelMenu" />
+      <MenuDraggable v-if="itemData.children" :list="itemData.children" :level-data="levelMenu"/>
     </div>
   </div>
 </template>

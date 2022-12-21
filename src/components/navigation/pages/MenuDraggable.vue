@@ -17,12 +17,23 @@ export default {
   },
 
   setup() {
+    const dragging = ref(false)
+    const drag_aimation = 400
+    const changedMenu = ref([])
     const menu = ref([])
 
     return {
-      menu
+      dragging,
+      drag_aimation,
+      menu,
+      changedMenu
     }
   },
+
+  emits: [
+    'update:added',
+    'update:moved'
+  ],
 
   computed: {
     levelMenu() {
@@ -36,7 +47,7 @@ export default {
         this.transformList(val)
       },
       deep: true
-    }
+    },
   },
 
   mounted() {
@@ -52,8 +63,25 @@ export default {
       }
     },
 
-    changeMenu(data) {
-      console.log(data)
+    draggableUpdate(data) {
+      this.draggableSort()
+      this.draggableEventManager(data)
+    },
+
+    draggableSort() {
+      this.menu.map((item, index) => {
+        item.sort = index + 1
+      })
+    },
+
+    draggableEventManager(data) {
+      if(data.moved) {
+        this.$emit('update:moved', data)
+      }
+
+      if(data.added) {
+        this.$emit('update:added', data.added)
+      }
     }
   }
 }
@@ -63,19 +91,16 @@ export default {
   <draggable
       class="menu-drag-area"
       tag="div"
-      :list="menu"
+      v-model="menu"
       :group="{ name: 'g1' }"
-      item-key="name"
-      @change="changeMenu($event)"
+      item-key="wiki"
+      :animation="drag_aimation"
+      @start="dragging = true"
+      @end="dragging = false"
+      @change="draggableUpdate"
   >
     <template #item="{ element }">
-      <PagesNavigationItem :item-data="element" :level-data="levelData" >
-<!--        {{element}}-->
-<!--        <template #children>-->
-          <!--            {{element.children}}-->
-<!--          <MenuDraggable :list="element.children" :level-data="levelMenu" />-->
-<!--        </template>-->
-      </PagesNavigationItem>
+      <PagesNavigationItem :item-data="element" :level-data="levelData" :is-dragging="dragging" />
     </template>
   </draggable>
 </template>
