@@ -75,7 +75,6 @@ export const useSidebarStore = defineStore('sidebar',{
 
         async updateMovedPanelMenu() {
             const authStore = useAuthStore()
-
             await fetch(`/api/project/wiki-menu-moved`, {
                 method: 'PUT',
                 headers: {
@@ -88,7 +87,6 @@ export const useSidebarStore = defineStore('sidebar',{
                 .then(async response => {
                     if (response.status === 200) {
                         const data = await response.json()
-                        console.log(data)
                     }
                 })
         },
