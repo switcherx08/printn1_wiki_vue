@@ -3,8 +3,7 @@ import IconPlus from "@/components/icons/IconPlus.vue";
 import IconArrowBottom from "@/components/icons/IconArrowBottom.vue";
 import IconSettings from "@/components/icons/IconSettings.vue";
 import MenuDraggable from "@/components/navigation/pages/MenuDraggable.vue";
-import {useSidebarStore} from "@/stores/sidebar";
-import {useWikiDataStore} from '@/stores/wikiData'
+import {useWikiDataStore} from '@/stores/wikiData';
 
 export default {
   name: 'PagesNavigationItem',
@@ -28,11 +27,10 @@ export default {
   },
 
   setup() {
-    const sidebarStore = useSidebarStore()
     const wikiDataStore = useWikiDataStore()
 
     return {
-      sidebarStore, wikiDataStore
+      wikiDataStore
     }
   },
 
@@ -69,10 +67,6 @@ export default {
       this.wikiDataStore.setOpenCreteWindow(true)
     },
 
-    openEditMenu(data) {
-      this.sidebarStore.setPanelMenuEditData(data)
-      this.sidebarStore.setPanelMenuIsEdit(true)
-    }
   }
 }
 </script>

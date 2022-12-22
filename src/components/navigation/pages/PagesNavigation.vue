@@ -34,7 +34,14 @@ export default {
   computed: {
     ...mapState(useSidebarStore, {
       menu: 'panelMenu',
+      panelMenuUpdateCounter: 'panelMenuUpdateCounter'
     }),
+  },
+
+  watch: {
+    panelMenuUpdateCounter() {
+      this.sidebarStore.updateMovedPanelMenu()
+    }
   },
 }
 </script>

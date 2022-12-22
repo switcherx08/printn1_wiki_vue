@@ -1,5 +1,8 @@
 <script>
 import {ref} from "vue";
+import {mapState} from "pinia";
+import {useSidebarStore} from "@/stores/sidebar";
+import {useProjectStore} from "@/stores/project";
 
 export default {
   name: 'MenuDraggable',
@@ -17,11 +20,13 @@ export default {
   },
 
   setup() {
+    const sidebarStore = useSidebarStore()
     const drag = ref(false)
     const changedMenu = ref([])
-    let menu = ref([])
+    const menu = ref([])
 
     return {
+      sidebarStore,
       drag,
       menu,
       changedMenu
@@ -29,6 +34,13 @@ export default {
   },
 
   computed: {
+    ...mapState(useProjectStore, {
+      projectId: 'projectId'
+    }),
+    ...mapState(useSidebarStore, {
+      portableMenuItem: 'portableMenuItem',
+      panelMenuUpdateCounter: 'panelMenuUpdateCounter'
+    }),
     levelMenu() {
       return this.levelData + 1
     },
@@ -39,7 +51,7 @@ export default {
         disabled: false,
         ghostClass: "ghost"
       };
-    }
+    },
   },
 
   created() {
@@ -57,30 +69,30 @@ export default {
 
   methods: {
     transformList(val) {
+      this.menu = []
+
       for(let i in val) {
         this.menu.push(val[i])
       }
     },
 
-    draggableUpdate(data) {
-      this.draggableSort()
-      this.draggableEventManager(data)
+    setUpdateCheckItem(item) {
+      if(item.moved) {
+        this.portableMenuItem.id = item.moved.element.id
+        this.portableMenuItem.sort = item.moved.newIndex
+      } else if (item.added) {
+        this.portableMenuItem.id = item.added.element.id
+        this.portableMenuItem.sort = item.added.newIndex
+      }
     },
 
-    draggableSort() {
-      this.menu.map((item, index) => {
-        item.sort = index + 1
-      })
+    setDragEnd(item) {
+      this.portableMenuItem.parent_id = item.id
     },
 
-    draggableEventManager(data) {
-      if(data.moved) {
-        console.log(data.moved)
-      }
-
-      if(data.added) {
-        console.log(data.added)
-      }
+    setUpdateEnd() {
+      this.drag = false
+      this.sidebarStore.panelMenuUpdateCounterUp()
     }
   }
 }
@@ -89,6 +101,7 @@ export default {
 <template>
   <draggable
       class="menu-drag-area"
+      item-key="wiki"
       :component-data="{
           tag: 'div',
           type: 'transition-group',
@@ -98,11 +111,15 @@ export default {
       v-bind="dragOptions"
       :group="{ name: 'g1' }"
       @start="drag = true"
-      @end="drag = false"
-      item-key="wiki"
+      @end="setUpdateEnd"
+      @change="setUpdateCheckItem"
   >
     <template #item="{ element }">
-      <PagesNavigationItem :item-data="element" :level-data="levelData" />
+      <PagesNavigationItem
+          :item-data="element"
+          :level-data="levelData"
+          @drop="setDragEnd(element)"
+      />
     </template>
   </draggable>
 </template>

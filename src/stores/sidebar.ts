@@ -1,8 +1,10 @@
 import {defineStore} from 'pinia'
 import {useModuleStore} from './module'
+// @ts-ignore
 import IconMenu from "@//assets/api/sidebar_icon_menu.json";
 import {useAuthStore} from "@/stores/auth";
 
+// @ts-ignore
 export const useSidebarStore = defineStore('sidebar',{
     state: () => ({
         _iconMenu: {},
@@ -10,7 +12,9 @@ export const useSidebarStore = defineStore('sidebar',{
         _panelMenuIsShow: true,
         _panelMenuIsView: true,
         _panelMenuIsEdit: false,
-        _panelMenuEditData: {}
+        _panelMenuEditData: {},
+        _portableMenuItem: { id: null, sort: null, parent_id: null },
+        _panelMenuUpdateCounter: 0,
     }),
     getters: {
         iconMenu: (state) => state._iconMenu,
@@ -20,6 +24,9 @@ export const useSidebarStore = defineStore('sidebar',{
         panelMenuIsView: (state) => state._panelMenuIsView,
         panelMenuIsEdit: (state) => state._panelMenuIsEdit,
         panelMenuEditData: (state) => state._panelMenuEditData,
+        portableMenuItem: (state) => state._portableMenuItem,
+        panelMenuUpdateCounter: (state) => state._panelMenuUpdateCounter,
+
     },
     actions: {
         setPanelMenu(data: object) {
@@ -32,6 +39,10 @@ export const useSidebarStore = defineStore('sidebar',{
 
         setPanelMenuEditData(data: object) {
             this._panelMenuEditData = data
+        },
+
+        panelMenuUpdateCounterUp() {
+            this._panelMenuUpdateCounter++
         },
 
         // Fetch data
@@ -59,6 +70,26 @@ export const useSidebarStore = defineStore('sidebar',{
                 })
                 .catch(error => {
                     this.setPanelMenu({})
+                })
+        },
+
+        async updateMovedPanelMenu() {
+            const authStore = useAuthStore()
+
+            await fetch(`/api/project/wiki-menu-moved`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': authStore.getToken()
+                },
+                body: JSON.stringify(this.portableMenuItem)
+            })
+                .then(async response => {
+                    if (response.status === 200) {
+                        const data = await response.json()
+                        console.log(data)
+                    }
                 })
         },
 
